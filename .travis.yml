@@ -1,0 +1,71 @@
+language: generic
+
+sudo: false
+
+cache:
+  apt: true
+  pip: true
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.local
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gfortran-6
+      - binutils
+      - python-pip
+      - graphviz
+
+env:
+  global:
+    - MAKECOVERAGE="FoBiS.py rule -ex makecoverage"
+    - MAKEDOC="./scripts/makedoc.sh szaghi/MORTIF"
+    - CLEAN="FoBiS.py rule -ex clean"
+    - MAKETAR="FoBiS.py rule -ex maketar"
+
+before_install:
+  - git submodule update --init --recursive
+
+install:
+  - |
+    if [[ ! -d "$HOME/.local/bin" ]]; then
+      mkdir "$HOME/.local/bin"
+    fi
+  - export PATH="$HOME/.local/bin:$PATH"
+  - export FC=/usr/bin/gfortran-6
+  - ln -fs /usr/bin/gfortran-6 "$HOME/.local/bin/gfortran" && gfortran --version
+  - ls -l /usr/bin/gfortran-6
+  - ln -fs /usr/bin/gcov-6 "$HOME/.local/bin/gcov" && gcov --version
+  - pip install --user --upgrade pygooglechart
+  - pip install --user --upgrade graphviz
+  - pip install --user --upgrade FoBiS.py
+  - pip install --user --upgrade markdown-checklist
+  - pip install --user --upgrade ford
+
+script:
+  - $MAKECOVERAGE
+
+after_success:
+  - find . -name '*.gcno' -print
+  - bash <(curl -s https://codecov.io/bash)
+  - $MAKEDOC
+
+before_deploy:
+  - $CLEAN
+  - $MAKETAR
+  - mv MORTIF.tar.gz MORTIF-$TRAVIS_TAG.tar.gz
+
+deploy:
+  provider: releases
+  api_key:
+    secure: iYikoBC3OckHaE18a4OHv0zDVE6nP5Ts70irdvKgLQU2V10V9re3GEb3lyXc6FeKwwyF0I1vPajsInIETqbQrbzhgoFYUKKeaIEQqoUwCx+7BQf2bARdfJC7YnL0/2sf/ux/aJ5Npf93zvNXA3g2iFiSohmV5aFwNq95XKStoR27hqdLmV74RjdBLh0TKWG34YXW5qZEwSo4xOKAPLotKnjQvL9xYFKA7uxFiSsBCKMiO39hjz3nGcoGGBariD7B2qmxOnxGXs0OR9Yi8B+xXGpKFDlcjHLF0/K/2PopxPFPHXl7JmERtANWvRmoCCe4Mr4kf9ifLqZt10lTdijbV2hCIuAJqYdSqYj8qshyldCON8L/jrFCPlG7jWgUUz4osUo3pnUCAUXxEBgfEbBB3F/Zb/l5v2mryfqi1Tg1cbM0eVb4DbxZHPyJ2JcKt3f3Jm+8EqNtE/hAXYaXhcOpVfQVR7LO9kVp4ZxxH/70BC6HeZwdJKSqpkVnSY/n8v8ykdN1ns8G7z6pyv6WjAesuHrpKCoNdYNlsVEErMMTwwsCPS8IapEBk3tTH1EXQiGxh0VY8xge45JsGrck+xWP3tbYHTE/FtxH/IjRHrt/ROKk2w3Cw52W03XdicVwV7LpN7XgtVzMzttr9XXBBDDslYQ4WJl4ayKQ5z8ZukRjBcY=
+  file: 
+    - MORTIF-$TRAVIS_TAG.tar.gz
+    - ./scripts/install.sh
+  skip_cleanup: true
+  overwrite: true
+  on:
+    tags: true
