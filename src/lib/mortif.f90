@@ -13,27 +13,42 @@ use penf
 implicit none
 save
 private
-public :: dil, ctc
+! public :: dil, ctc
 public :: morton2, demorton2, morton3, demorton3
 !-----------------------------------------------------------------------------------------------------------------------------------
 
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! Binary masks: used into the bits dilating and contracting algorithms.
-integer(I8P), parameter :: mask32_32 = Z'FFFFFFFF'         !< 0000000000000000000000000000000011111111111111111111111111111111.
-integer(I8P), parameter :: mask16_48 = Z'FFFF'             !< 0000000000000000000000000000000000000000000000001111111111111111.
-integer(I8P), parameter :: mask16_32 = Z'FFFF00000000FFFF' !< 1111111111111111000000000000000000000000000000001111111111111111.
-integer(I8P), parameter :: mask16_16 = Z'FFFF0000FFFF'     !< 0000000000000000111111111111111100000000000000001111111111111111.
-integer(I8P), parameter :: mask8_56  = Z'FF'               !< 0000000000000000000000000000000000000000000000000000000011111111.
-integer(I8P), parameter :: mask8_16  = Z'FF0000FF0000FF'   !< 0000000011111111000000000000000011111111000000000000000011111111.
-integer(I8P), parameter :: mask8_8   = Z'FF00FF00FF00FF'   !< 0000000011111111000000001111111100000000111111110000000011111111.
-integer(I8P), parameter :: mask4_60  = Z'F'                !< 0000000000000000000000000000000000000000000000000000000000001111.
-integer(I8P), parameter :: mask4_8   = Z'F00F00F00F00F00F' !< 1111000000001111000000001111000000001111000000001111000000001111.
-integer(I8P), parameter :: mask4_4   = Z'F0F0F0F0F0F0F0F'  !< 0000111100001111000011110000111100001111000011110000111100001111.
-integer(I8P), parameter :: mask2_62  = Z'3'                !< 0000000000000000000000000000000000000000000000000000000000000011.
-integer(I8P), parameter :: mask2_4   = z'30C30C30C30C30C3' !< 0011000011000011000011000011000011000011000011000011000011000011.
-integer(I8P), parameter :: mask2_2   = Z'3333333333333333' !< 0011001100110011001100110011001100110011001100110011001100110011.
-integer(I8P), parameter :: mask1_2   = Z'9249249249249249' !< 1001001001001001001001001001001001001001001001001001001001001001.
-integer(I8P), parameter :: mask1_1   = Z'5555555555555555' !< 0101010101010101010101010101010101010101010101010101010101010101.
+!> 0000000000000000000000000000000011111111111111111111111111111111.
+integer(I8P) , parameter :: mask32_32=int(Z'FFFFFFFF',         I8P)
+!> 0000000000000000000000000000000000000000000000001111111111111111.
+integer(I8P) , parameter :: mask16_48=int(Z'FFFF',             I8P)
+!> 1111111111111111000000000000000000000000000000001111111111111111.
+integer(I8P) , parameter :: mask16_32=int(Z'FFFF00000000FFFF', I8P)
+!> 0000000000000000111111111111111100000000000000001111111111111111.
+integer(I8P) , parameter :: mask16_16=int(Z'FFFF0000FFFF',     I8P)
+!> 0000000000000000000000000000000000000000000000000000000011111111.
+integer(I8P) , parameter :: mask8_56 =int(Z'FF',               I8P)
+!> 0000000011111111000000000000000011111111000000000000000011111111.
+integer(I8P) , parameter :: mask8_16 =int(Z'FF0000FF0000FF',   I8P)
+!> 0000000011111111000000001111111100000000111111110000000011111111.
+integer(I8P) , parameter :: mask8_8  =int(Z'FF00FF00FF00FF',   I8P)
+!> 0000000000000000000000000000000000000000000000000000000000001111.
+integer(I8P) , parameter :: mask4_60 =int(Z'F',                I8P)
+!> 1111000000001111000000001111000000001111000000001111000000001111.
+integer(I8P) , parameter :: mask4_8  =int(Z'F00F00F00F00F00F', I8P)
+!> 0000111100001111000011110000111100001111000011110000111100001111.
+integer(I8P) , parameter :: mask4_4  =int(Z'F0F0F0F0F0F0F0F',  I8P)
+!> 0000000000000000000000000000000000000000000000000000000000000011.
+integer(I8P) , parameter :: mask2_62 =int(Z'3',                I8P)
+!> 0011000011000011000011000011000011000011000011000011000011000011.
+integer(I8P) , parameter :: mask2_4  =int(z'30C30C30C30C30C3', I8P)
+!> 0011001100110011001100110011001100110011001100110011001100110011.
+integer(I8P) , parameter :: mask2_2  =int(Z'3333333333333333', I8P)
+!> 1001001001001001001001001001001001001001001001001001001001001001.
+integer(I8P) , parameter :: mask1_2  =int(Z'9249249249249249', I8P)
+!> 0101010101010101010101010101010101010101010101010101010101010101.
+integer(I8P) , parameter :: mask1_1  =int(Z'5555555555555555', I8P)
 
 integer(I8P), parameter :: signif(1:5) = [mask2_62,  &
                                           mask4_60,  &
@@ -86,12 +101,12 @@ endinterface
 
 interface morton3
   !< Encode 3 integer(int8/int16) indexes into 1 integer(int64) Morton's code.
-  module procedure morton3_I1P, morton3_I2P
+  module procedure morton3_I1P, morton3_I2P, morton3_I4P
 endinterface
 
 interface demorton3
   !< Decode 1 integer(int64) Morton's key into 3 integer(int8/int16) indexes.
-  module procedure demorton3_I1P, demorton3_I2P
+  module procedure demorton3_I1P, demorton3_I2P, demorton3_I4P
 endinterface
 !-----------------------------------------------------------------------------------------------------------------------------------
 contains
@@ -238,11 +253,11 @@ contains
 
   !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
-    di = dil_I1P(i=i,b=b,z=1_I1P)
-    dj = dil_I1P(i=j,b=b,z=1_I1P)
+    di = dil(i=i, b=b, z=1_I1P)
+    dj = dil(i=j, b=b, z=1_I1P)
   else
-    di = dil_I1P(i=i,b=8_I2P,z=1_I1P)
-    dj = dil_I1P(i=j,b=8_I2P,z=1_I1P)
+    di = dil(i=i, b=8_I2P, z=1_I1P)
+    dj = dil(i=j, b=8_I2P, z=1_I1P)
   endif
   key = ishft(dj,1) + di
   !---------------------------------------------------------------------------------------------------------------------------------
@@ -262,11 +277,11 @@ contains
 
   !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
-    di = dil_I2P(i=i,b=b,z=1_I1P)
-    dj = dil_I2P(i=j,b=b,z=1_I1P)
+    di = dil_I2P(i=i, b=b, z=1_I1P)
+    dj = dil_I2P(i=j, b=b, z=1_I1P)
   else
-    di = dil_I2P(i=i,b=16_I2P,z=1_I1P)
-    dj = dil_I2P(i=j,b=16_I2P,z=1_I1P)
+    di = dil_I2P(i=i, b=16_I2P, z=1_I1P)
+    dj = dil_I2P(i=j, b=16_I2P, z=1_I1P)
   endif
   key = ishft(dj,1) + di
   !---------------------------------------------------------------------------------------------------------------------------------
@@ -286,11 +301,11 @@ contains
 
   !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
-    di = dil_I4P(i=i,b=b,z=1_I1P)
-    dj = dil_I4P(i=j,b=b,z=1_I1P)
+    di = dil_I4P(i=i, b=b, z=1_I1P)
+    dj = dil_I4P(i=j, b=b, z=1_I1P)
   else
-    di = dil_I4P(i=i,b=32_I2P,z=1_I1P)
-    dj = dil_I4P(i=j,b=32_I2P,z=1_I1P)
+    di = dil_I4P(i=i, b=32_I2P, z=1_I1P)
+    dj = dil_I4P(i=j, b=32_I2P, z=1_I1P)
   endif
   key = ishft(dj,1) + di
   !---------------------------------------------------------------------------------------------------------------------------------
@@ -308,11 +323,11 @@ contains
 
   !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
-    call ctc(i=key,          b=b,z=1_I1P,c=i)
-    call ctc(i=ishft(key,-1),b=b,z=1_I1P,c=j)
+    call ctc(i=key,           b=b, z=1_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=b, z=1_I1P, c=j)
   else
-    call ctc(i=key,          b=8_I2P,z=1_I1P,c=i)
-    call ctc(i=ishft(key,-1),b=8_I2P,z=1_I1P,c=j)
+    call ctc(i=key,           b=8_I2P, z=1_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=8_I2P, z=1_I1P, c=j)
   endif
   !---------------------------------------------------------------------------------------------------------------------------------
   endsubroutine demorton2_I1P
@@ -329,11 +344,11 @@ contains
 
   !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
-    call ctc(i=key,          b=b,z=1_I1P,c=i)
-    call ctc(i=ishft(key,-1),b=b,z=1_I1P,c=j)
+    call ctc(i=key,           b=b, z=1_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=b, z=1_I1P, c=j)
   else
-    call ctc(i=key,          b=16_I2P,z=1_I1P,c=i)
-    call ctc(i=ishft(key,-1),b=16_I2P,z=1_I1P,c=j)
+    call ctc(i=key,           b=16_I2P, z=1_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=16_I2P, z=1_I1P, c=j)
   endif
   !---------------------------------------------------------------------------------------------------------------------------------
   endsubroutine demorton2_I2P
@@ -350,11 +365,11 @@ contains
 
   !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
-    call ctc(i=key,          b=b,z=1_I1P,c=i)
-    call ctc(i=ishft(key,-1),b=b,z=1_I1P,c=j)
+    call ctc(i=key,           b=b, z=1_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=b, z=1_I1P, c=j)
   else
-    call ctc(i=key,          b=32_I2P,z=1_I1P,c=i)
-    call ctc(i=ishft(key,-1),b=32_I2P,z=1_I1P,c=j)
+    call ctc(i=key,           b=32_I2P, z=1_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=32_I2P, z=1_I1P, c=j)
   endif
   !---------------------------------------------------------------------------------------------------------------------------------
   endsubroutine demorton2_I4P
@@ -375,16 +390,15 @@ contains
 
   !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
-    di = dil_I1P(i=i,b=b,z=2_I1P)
-    dj = dil_I1P(i=j,b=b,z=2_I1P)
-    dk = dil_I1P(i=k,b=b,z=2_I1P)
+    di = dil_I1P(i=i, b=b, z=2_I1P)
+    dj = dil_I1P(i=j, b=b, z=2_I1P)
+    dk = dil_I1P(i=k, b=b, z=2_I1P)
   else
-    di = dil_I1P(i=i,b=8_I2P,z=2_I1P)
-    dj = dil_I1P(i=j,b=8_I2P,z=2_I1P)
-    dk = dil_I1P(i=k,b=8_I2P,z=2_I1P)
+    di = dil_I1P(i=i, b=8_I2P, z=2_I1P)
+    dj = dil_I1P(i=j, b=8_I2P, z=2_I1P)
+    dk = dil_I1P(i=k, b=8_I2P, z=2_I1P)
   endif
-  !key = ishft(dk,2) + ishft(dj,1) + di
-  key = ishft(dj,2) + ishft(dk,1) + di
+  key = ishft(dk,2) + ishft(dj,1) + di
   !---------------------------------------------------------------------------------------------------------------------------------
   endfunction morton3_I1P
 
@@ -404,18 +418,47 @@ contains
 
   !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
-    di = dil_I2P(i=i,b=b,z=2_I1P)
-    dj = dil_I2P(i=j,b=b,z=2_I1P)
-    dk = dil_I2P(i=k,b=b,z=2_I1P)
+    di = dil_I2P(i=i, b=b, z=2_I1P)
+    dj = dil_I2P(i=j, b=b, z=2_I1P)
+    dk = dil_I2P(i=k, b=b, z=2_I1P)
   else
-    di = dil_I2P(i=i,b=16_I2P,z=2_I1P)
-    dj = dil_I2P(i=j,b=16_I2P,z=2_I1P)
-    dk = dil_I2P(i=k,b=16_I2P,z=2_I1P)
+    di = dil_I2P(i=i, b=16_I2P, z=2_I1P)
+    dj = dil_I2P(i=j, b=16_I2P, z=2_I1P)
+    dk = dil_I2P(i=k, b=16_I2P, z=2_I1P)
   endif
-  !key = ishft(dk,2) + ishft(dj,1) + di
-  key = ishft(dj,2) + ishft(dk,1) + di
+  key = ishft(dk,2) + ishft(dj,1) + di
   !---------------------------------------------------------------------------------------------------------------------------------
   endfunction morton3_I2P
+
+  elemental function morton3_I4P(i, j, k, b) result(key)
+  !---------------------------------------------------------------------------------------------------------------------------------
+  !< Encode 3 integer (32 bits) indexes into 1 integer (64 bits) Morton's code.
+  !<
+  !< @note Due to 64 bits limit of the Morton's code, the 3 allowed-side of indexes is limited to 21 bits.
+  !---------------------------------------------------------------------------------------------------------------------------------
+  integer(I4P), intent(in)           :: i   !< I index.
+  integer(I4P), intent(in)           :: j   !< J index.
+  integer(I4P), intent(in)           :: k   !< K index.
+  integer(I2P), intent(in), optional :: b   !< Number of significant bits of 'i' (2/4/8/16/32).
+  integer(I8P)                       :: key !< Morton's code.
+  integer(I8P)                       :: di  !< Dilated indexes.
+  integer(I8P)                       :: dj  !< Dilated indexes.
+  integer(I8P)                       :: dk  !< Dilated indexes.
+  !---------------------------------------------------------------------------------------------------------------------------------
+
+  !---------------------------------------------------------------------------------------------------------------------------------
+  if (present(b)) then
+    di = dil(i=i, b=b, z=2_I1P)
+    dj = dil(i=j, b=b, z=2_I1P)
+    dk = dil(i=k, b=b, z=2_I1P)
+  else
+    di = dil(i=i, b=32_I2P, z=2_I1P)
+    dj = dil(i=j, b=32_I2P, z=2_I1P)
+    dk = dil(i=k, b=32_I2P, z=2_I1P)
+  endif
+  key = ishft(dk,2) + ishft(dj,1) + di
+  !---------------------------------------------------------------------------------------------------------------------------------
+  endfunction morton3_I4P
 
   elemental subroutine demorton3_I1P(key, i, j, k, b)
   !---------------------------------------------------------------------------------------------------------------------------------
@@ -430,19 +473,13 @@ contains
 
   !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
-    !call ctc(i=key,          b=b,z=2_I1P,c=i)
-    !call ctc(i=ishft(key,-1),b=b,z=2_I1P,c=j)
-    !call ctc(i=ishft(key,-2),b=b,z=2_I1P,c=k)
-    call ctc(i=key,          b=b,z=2_I1P,c=i)
-    call ctc(i=ishft(key,-1),b=b,z=2_I1P,c=k)
-    call ctc(i=ishft(key,-2),b=b,z=2_I1P,c=j)
+    call ctc(i=key,           b=b, z=2_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=b, z=2_I1P, c=j)
+    call ctc(i=ishft(key,-2), b=b, z=2_I1P, c=k)
   else
-    !call ctc(i=key,          b=8_I2P,z=2_I1P,c=i)
-    !call ctc(i=ishft(key,-1),b=8_I2P,z=2_I1P,c=j)
-    !call ctc(i=ishft(key,-2),b=8_I2P,z=2_I1P,c=k)
-    call ctc(i=key,          b=8_I2P,z=2_I1P,c=i)
-    call ctc(i=ishft(key,-1),b=8_I2P,z=2_I1P,c=k)
-    call ctc(i=ishft(key,-2),b=8_I2P,z=2_I1P,c=j)
+    call ctc(i=key,           b=8_I2P, z=2_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=8_I2P, z=2_I1P, c=j)
+    call ctc(i=ishft(key,-2), b=8_I2P, z=2_I1P, c=k)
   endif
   !---------------------------------------------------------------------------------------------------------------------------------
   endsubroutine demorton3_I1P
@@ -460,20 +497,40 @@ contains
 
   !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
-    !call ctc(i=key,          b=b,z=2_I1P,c=i)
-    !call ctc(i=ishft(key,-1),b=b,z=2_I1P,c=j)
-    !call ctc(i=ishft(key,-2),b=b,z=2_I1P,c=k)
-    call ctc(i=key,          b=b,z=2_I1P,c=i)
-    call ctc(i=ishft(key,-1),b=b,z=2_I1P,c=k)
-    call ctc(i=ishft(key,-2),b=b,z=2_I1P,c=j)
+    call ctc(i=key,           b=b, z=2_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=b, z=2_I1P, c=j)
+    call ctc(i=ishft(key,-2), b=b, z=2_I1P, c=k)
   else
-    !call ctc(i=key,          b=16_I2P,z=2_I1P,c=i)
-    !call ctc(i=ishft(key,-1),b=16_I2P,z=2_I1P,c=j)
-    !call ctc(i=ishft(key,-2),b=16_I2P,z=2_I1P,c=k)
-    call ctc(i=key,          b=16_I2P,z=2_I1P,c=i)
-    call ctc(i=ishft(key,-1),b=16_I2P,z=2_I1P,c=k)
-    call ctc(i=ishft(key,-2),b=16_I2P,z=2_I1P,c=j)
+    call ctc(i=key,           b=16_I2P, z=2_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=16_I2P, z=2_I1P, c=j)
+    call ctc(i=ishft(key,-2), b=16_I2P, z=2_I1P, c=k)
   endif
   !---------------------------------------------------------------------------------------------------------------------------------
   endsubroutine demorton3_I2P
+
+  elemental subroutine demorton3_I4P(key, i, j, k, b)
+  !---------------------------------------------------------------------------------------------------------------------------------
+  !< Decode 1 integer (64 bits) Morton's code into 3 integer (16 bits) indexes.
+  !<
+  !< @note Due to 64 bits limit of the Morton's code, the 3 allowed-side of indexes is limited to 21 bits.
+  !---------------------------------------------------------------------------------------------------------------------------------
+  integer(I8P), intent(in)           :: key !< Morton's code.
+  integer(I4P), intent(inout)        :: i   !< I index.
+  integer(I4P), intent(inout)        :: j   !< J index.
+  integer(I4P), intent(inout)        :: k   !< K index.
+  integer(I2P), intent(in), optional :: b   !< Number of significant bits of 'i' (2/4/8/16).
+  !---------------------------------------------------------------------------------------------------------------------------------
+
+  !---------------------------------------------------------------------------------------------------------------------------------
+  if (present(b)) then
+    call ctc(i=key,           b=b, z=2_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=b, z=2_I1P, c=j)
+    call ctc(i=ishft(key,-2), b=b, z=2_I1P, c=k)
+  else
+    call ctc(i=key,           b=32_I2P, z=2_I1P, c=i)
+    call ctc(i=ishft(key,-1), b=32_I2P, z=2_I1P, c=j)
+    call ctc(i=ishft(key,-2), b=32_I2P, z=2_I1P, c=k)
+  endif
+  !---------------------------------------------------------------------------------------------------------------------------------
+  endsubroutine demorton3_I4P
 endmodule mortif
