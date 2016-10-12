@@ -66,4 +66,4 @@ def morton2_bis(x, y):
   return m/4
 
 if __name__ == '__main__':
-  print(morton3(2097151, 7, 0))
+  print(morton3(0, 1, 0))
