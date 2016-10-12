@@ -2,7 +2,7 @@
 module mortif
 !< MORTIF, MORTon Indexer (Z-order) Fortran environment.
 !<
-!> Library to encode/decode integer indexes  into Morton's (or Z-order) ordering. Morton
+!> A library to encode/decode integer indexes into Morton's (Z-order) ordering.
 !> Morton's code (Z-order) is a scheme to map multi-dimensional arrays onto to a linear with a great deal of spatial locality.
 !<
 !<#### References
