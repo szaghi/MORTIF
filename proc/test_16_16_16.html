@@ -70,9 +70,11 @@
             <li><a href="../lists/procedures.html">Procedures</a></li>
 				
 								
+            <li><a href="../lists/types.html">Derived Types</a></li>
 				
-            <li><a href="../program/mortif_test_correctness.html">Program</a></li>
-	    
+				
+            <li><a href="../lists/programs.html">Programs</a></li>
+				
             </ul>
             </li>
 
@@ -86,8 +88,10 @@
 <li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
 
                              
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
 
-<li class="visible-xs hidden-sm visible-lg"><a href="../program/mortif_test_correctness.html">Program</a></li>
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/programs.html">Programs</a></li>
 
           </ul>
         
@@ -109,7 +113,7 @@
   
   <div class="row">
     <h1>test_16_16_16
-      <small>Function</small>
+      <small>Subroutine</small>
     
     </h1>
     
@@ -126,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 3.1% of total for procedures.">28 statements</a>
+	  title=" 1.9% of total for procedures.">20 statements</a>
      </li> 
      
      
@@ -193,6 +197,28 @@
   <div id="allprocs-0" class="panel-collapse collapse">
     <div class="list-group">
       
+      <a class="list-group-item" href="../proc/assert_close_d.html">assert_close_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_close_d_1.html">assert_close_d_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_close_r.html">assert_close_r</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_d.html">assert_equal_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_i.html">assert_equal_i</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_i_1.html">assert_equal_i_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_l.html">assert_equal_l</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_l_1.html">assert_equal_l_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_d.html">assert_positive_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_i.html">assert_positive_i</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_i_1.html">assert_positive_i_1</a>
+      
       <a class="list-group-item" href="../proc/contract.html">contract</a>
       
       <a class="list-group-item" href="../proc/create_indexes_file.html">create_indexes_file</a>
@@ -205,9 +231,13 @@
       
       <a class="list-group-item" href="../proc/dilatate.html">dilatate</a>
       
+      <a class="list-group-item" href="../proc/init.html">init</a>
+      
       <a class="list-group-item" href="../proc/morton2d.html">morton2D</a>
       
       <a class="list-group-item" href="../proc/morton3d.html">morton3D</a>
+      
+      <a class="list-group-item" href="../proc/print.html">print</a>
       
       <a class="list-group-item" href="../proc/test_16_16_16.html">test_16_16_16</a>
       
@@ -224,7 +254,7 @@
     
     <div class="col-md-9" id='text'>
     <h2>
-function test_16_16_16() result(is_test_passed)
+subroutine test_16_16_16(tester_handler)
     
     
 	 
@@ -239,17 +269,35 @@ function test_16_16_16() result(is_test_passed)
 
     <h3>Arguments</h3>
     
-      <em>None</em>
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-tester_handler%7E2"></span>type(<a href='../type/tester_t.html'>tester_t</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>tester_handler</strong></td><td><p>Tester handler.</p></td>
+  
+</tr>
+
+</tbody>
+</table>
+
     
-    
-    
-    
-    
-    
-    
-	 <h3>Return Value <small><span class="anchor" id="variable-is_test_passed%7E2"></span>logical
-  (1:4096)</small></h3>
-    <p>Test result.</p>
     
     
      <h3>Calls</h3>
@@ -270,53 +318,53 @@ function test_16_16_16() result(is_test_passed)
 <polygon fill="none" stroke="black" points="84,-70 4.26326e-14,-70 0,-44 84,-44 84,-70"/>
 <text text-anchor="middle" x="42" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50">test_16_16_16</text>
 </g>
-<!-- proc~create_indexes_file -->
-<g id="node2" class="node"><title>proc~create_indexes_file</title>
-<a xlink:href="../proc/create_indexes_file.html" xlink:title="create_indexes_file">
-<polygon fill="#d9534f" stroke="#d9534f" points="225,-114 121,-114 121,-88 225,-88 225,-114"/>
-<text text-anchor="middle" x="173" y="-98.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">create_indexes_file</text>
-</a>
-</g>
-<!-- proc~test_16_16_16&#45;&gt;proc~create_indexes_file -->
-<g id="edge4" class="edge"><title>proc~test_16_16_16&#45;&gt;proc~create_indexes_file</title>
-<path fill="none" stroke="#000000" d="M80.9496,-70.0823C94.5536,-74.6516 109.997,-79.8386 124.295,-84.6411"/>
-<polygon fill="#000000" stroke="#000000" points="123.38,-88.0259 133.974,-87.8921 125.609,-81.3902 123.38,-88.0259"/>
-</g>
 <!-- proc~create_morton_file -->
-<g id="node3" class="node"><title>proc~create_morton_file</title>
+<g id="node2" class="node"><title>proc~create_morton_file</title>
 <a xlink:href="../proc/create_morton_file.html" xlink:title="create_morton_file">
-<polygon fill="#d9534f" stroke="#d9534f" points="224,-70 122,-70 122,-44 224,-44 224,-70"/>
-<text text-anchor="middle" x="173" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">create_morton_file</text>
+<polygon fill="#d9534f" stroke="#d9534f" points="224,-114 122,-114 122,-88 224,-88 224,-114"/>
+<text text-anchor="middle" x="173" y="-98.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">create_morton_file</text>
 </a>
 </g>
 <!-- proc~test_16_16_16&#45;&gt;proc~create_morton_file -->
-<g id="edge6" class="edge"><title>proc~test_16_16_16&#45;&gt;proc~create_morton_file</title>
-<path fill="none" stroke="#000000" d="M84.1703,-57C92.9588,-57 102.392,-57 111.711,-57"/>
-<polygon fill="#000000" stroke="#000000" points="111.742,-60.5001 121.742,-57 111.742,-53.5001 111.742,-60.5001"/>
+<g id="edge4" class="edge"><title>proc~test_16_16_16&#45;&gt;proc~create_morton_file</title>
+<path fill="none" stroke="#000000" d="M80.9496,-70.0823C94.5536,-74.6516 109.997,-79.8386 124.295,-84.6411"/>
+<polygon fill="#000000" stroke="#000000" points="123.38,-88.0259 133.974,-87.8921 125.609,-81.3902 123.38,-88.0259"/>
 </g>
 <!-- proc~morton3d -->
-<g id="node4" class="node"><title>proc~morton3d</title>
+<g id="node3" class="node"><title>proc~morton3d</title>
 <a xlink:href="../proc/morton3d.html" xlink:title="morton3D">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="203,-26 143,-26 143,-1.24345e-14 203,-3.55271e-15 203,-26"/>
-<text text-anchor="middle" x="173" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">morton3D</text>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="203,-70 143,-70 143,-44 203,-44 203,-70"/>
+<text text-anchor="middle" x="173" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">morton3D</text>
 </a>
 </g>
 <!-- proc~test_16_16_16&#45;&gt;proc~morton3d -->
-<g id="edge8" class="edge"><title>proc~test_16_16_16&#45;&gt;proc~morton3d</title>
-<path fill="none" stroke="#000000" d="M80.9496,-43.9177C97.3135,-38.4214 116.339,-32.0313 132.831,-26.4919"/>
-<polygon fill="#000000" stroke="#000000" points="134.361,-29.6702 142.726,-23.1683 132.132,-23.0345 134.361,-29.6702"/>
+<g id="edge6" class="edge"><title>proc~test_16_16_16&#45;&gt;proc~morton3d</title>
+<path fill="none" stroke="#000000" d="M84.1703,-57C99.7278,-57 117.305,-57 132.694,-57"/>
+<polygon fill="#000000" stroke="#000000" points="132.946,-60.5001 142.946,-57 132.946,-53.5001 132.946,-60.5001"/>
+</g>
+<!-- proc~create_indexes_file -->
+<g id="node4" class="node"><title>proc~create_indexes_file</title>
+<a xlink:href="../proc/create_indexes_file.html" xlink:title="create_indexes_file">
+<polygon fill="#d9534f" stroke="#d9534f" points="225,-26 121,-26 121,-1.24345e-14 225,-3.55271e-15 225,-26"/>
+<text text-anchor="middle" x="173" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">create_indexes_file</text>
+</a>
+</g>
+<!-- proc~test_16_16_16&#45;&gt;proc~create_indexes_file -->
+<g id="edge8" class="edge"><title>proc~test_16_16_16&#45;&gt;proc~create_indexes_file</title>
+<path fill="none" stroke="#000000" d="M80.9496,-43.9177C94.5536,-39.3484 109.997,-34.1614 124.295,-29.3589"/>
+<polygon fill="#000000" stroke="#000000" points="125.609,-32.6098 133.974,-26.1079 123.38,-25.9741 125.609,-32.6098"/>
 </g>
 <!-- proc~dilatate -->
 <g id="node5" class="node"><title>proc~dilatate</title>
 <a xlink:href="../proc/dilatate.html" xlink:title="dilatate">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="316,-26 262,-26 262,-1.24345e-14 316,-3.55271e-15 316,-26"/>
-<text text-anchor="middle" x="289" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dilatate</text>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="316,-70 262,-70 262,-44 316,-44 316,-70"/>
+<text text-anchor="middle" x="289" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dilatate</text>
 </a>
 </g>
 <!-- proc~morton3d&#45;&gt;proc~dilatate -->
 <g id="edge2" class="edge"><title>proc~morton3d&#45;&gt;proc~dilatate</title>
-<path fill="none" stroke="#000000" d="M203.175,-13C217.901,-13 235.764,-13 251.372,-13"/>
-<polygon fill="#000000" stroke="#000000" points="251.752,-16.5001 261.752,-13 251.752,-9.5001 251.752,-16.5001"/>
+<path fill="none" stroke="#000000" d="M203.175,-57C217.901,-57 235.764,-57 251.372,-57"/>
+<polygon fill="#000000" stroke="#000000" points="251.752,-60.5001 261.752,-57 251.752,-53.5001 251.752,-60.5001"/>
 </g>
 </g>
 </svg>
@@ -445,19 +493,19 @@ function test_16_16_16() result(is_test_passed)
     
     <section>
     <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="highlight"><pre><span></span>  <span class="k">function </span><span class="n">test_16_16_16</span><span class="p">()</span>  <span class="k">result</span><span class="p">(</span><span class="n">is_test_passed</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span>  <span class="k">subroutine </span><span class="n">test_16_16_16</span><span class="p">(</span><span class="n">tester_handler</span><span class="p">)</span>
   <span class="c">!---------------------------------------------------------------------------------------------------------------------------------</span>
   <span class="c">!&lt; Test morton3 encoder/decoder for the matrix [(0,0,0), (1,0,0), ... (15,15,15)], namely 4096 tests.</span>
   <span class="c">!---------------------------------------------------------------------------------------------------------------------------------</span>
-  <span class="kt">logical</span>        <span class="kd">::</span> <span class="n">is_test_passed</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">4096</span><span class="p">)</span>         <span class="c">!&lt; Test result.</span>
-  <span class="kt">integer</span><span class="p">(</span><span class="n">int64</span><span class="p">)</span> <span class="kd">::</span> <span class="n">reference_morton</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">4096</span><span class="p">)</span>       <span class="c">!&lt; Morton code references.</span>
-  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span> <span class="kd">::</span> <span class="n">reference_indexes</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4096</span><span class="p">)</span> <span class="c">!&lt; Indexes references.</span>
-  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span> <span class="kd">::</span> <span class="n">unit_scratch</span>                   <span class="c">!&lt; Unit of scratch file.</span>
-  <span class="kt">integer</span><span class="p">(</span><span class="n">int64</span><span class="p">)</span> <span class="kd">::</span> <span class="n">morton</span>                         <span class="c">!&lt; Morton encode result.</span>
-  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span> <span class="kd">::</span> <span class="n">indexes</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>                   <span class="c">!&lt; Indexes decoding result.</span>
-  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span> <span class="kd">::</span> <span class="n">i</span>                              <span class="c">!&lt; Counter.</span>
-  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span> <span class="kd">::</span> <span class="n">j</span>                              <span class="c">!&lt; Counter.</span>
-  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span> <span class="kd">::</span> <span class="n">t</span>                              <span class="c">!&lt; Counter.</span>
+  <span class="k">type</span><span class="p">(</span><span class="n">tester_t</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">tester_handler</span>                 <span class="c">!&lt; Tester handler.</span>
+  <span class="kt">integer</span><span class="p">(</span><span class="n">int64</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">reference_morton</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">4096</span><span class="p">)</span>       <span class="c">!&lt; Morton code references.</span>
+  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">reference_indexes</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4096</span><span class="p">)</span> <span class="c">!&lt; Indexes references.</span>
+  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">unit_scratch</span>                   <span class="c">!&lt; Unit of scratch file.</span>
+  <span class="kt">integer</span><span class="p">(</span><span class="n">int64</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">morton</span>                         <span class="c">!&lt; Morton encode result.</span>
+  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">indexes</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>                   <span class="c">!&lt; Indexes decoding result.</span>
+  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">i</span>                              <span class="c">!&lt; Counter.</span>
+  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">j</span>                              <span class="c">!&lt; Counter.</span>
+  <span class="kt">integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>                <span class="kd">::</span> <span class="n">t</span>                              <span class="c">!&lt; Counter.</span>
   <span class="c">!---------------------------------------------------------------------------------------------------------------------------------</span>
 
   <span class="c">!---------------------------------------------------------------------------------------------------------------------------------</span>
@@ -473,17 +521,10 @@ function test_16_16_16() result(is_test_passed)
 
   <span class="k">do </span><span class="n">t</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">(</span><span class="n">reference_morton</span><span class="p">,</span> <span class="nb">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">morton</span> <span class="o">=</span> <span class="n">morton3D</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">reference_indexes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">t</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="n">reference_indexes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">t</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="n">reference_indexes</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">t</span><span class="p">))</span>
-    <span class="n">is_test_passed</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="n">morton</span><span class="o">==</span><span class="n">reference_morton</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="n">is_test_passed</span><span class="p">(</span><span class="n">t</span><span class="p">))</span> <span class="k">then</span>
-<span class="k">      print</span> <span class="s1">&#39;(A,I11)&#39;</span><span class="p">,</span> <span class="s1">&#39;error: encode fail for test &#39;</span><span class="p">,</span> <span class="n">t</span>
-      <span class="k">print</span> <span class="s1">&#39;(A,I20)&#39;</span><span class="p">,</span> <span class="s1">&#39;reference Morton code= &#39;</span><span class="p">,</span> <span class="n">reference_morton</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-      <span class="k">print</span> <span class="s1">&#39;(A,I20)&#39;</span><span class="p">,</span> <span class="s1">&#39;encoded Morton code= &#39;</span><span class="p">,</span> <span class="n">morton</span>
-      <span class="k">print</span> <span class="s1">&#39;(A,3I11)&#39;</span><span class="p">,</span> <span class="s1">&#39;reference indexes= &#39;</span><span class="p">,</span> <span class="n">reference_indexes</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-      <span class="k">stop</span>
-<span class="k">    </span><span class="n">endif</span>
+    <span class="c">! call tester_handler%assert_equal(morton, reference_morton(t)) ! TODO reintroduce</span>
   <span class="n">enddo</span>
   <span class="c">!---------------------------------------------------------------------------------------------------------------------------------</span>
-  <span class="n">endfunction</span> <span class="n">test_16_16_16</span>
+  <span class="n">endsubroutine</span> <span class="n">test_16_16_16</span>
 </pre></div>
 
     </section>
@@ -502,6 +543,28 @@ function test_16_16_16() result(is_test_passed)
   <div id="allprocs-1" class="panel-collapse collapse">
     <div class="list-group">
       
+      <a class="list-group-item" href="../proc/assert_close_d.html">assert_close_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_close_d_1.html">assert_close_d_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_close_r.html">assert_close_r</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_d.html">assert_equal_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_i.html">assert_equal_i</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_i_1.html">assert_equal_i_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_l.html">assert_equal_l</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_l_1.html">assert_equal_l_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_d.html">assert_positive_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_i.html">assert_positive_i</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_i_1.html">assert_positive_i_1</a>
+      
       <a class="list-group-item" href="../proc/contract.html">contract</a>
       
       <a class="list-group-item" href="../proc/create_indexes_file.html">create_indexes_file</a>
@@ -514,9 +577,13 @@ function test_16_16_16() result(is_test_passed)
       
       <a class="list-group-item" href="../proc/dilatate.html">dilatate</a>
       
+      <a class="list-group-item" href="../proc/init.html">init</a>
+      
       <a class="list-group-item" href="../proc/morton2d.html">morton2D</a>
       
       <a class="list-group-item" href="../proc/morton3d.html">morton3D</a>
+      
+      <a class="list-group-item" href="../proc/print.html">print</a>
       
       <a class="list-group-item" href="../proc/test_16_16_16.html">test_16_16_16</a>
       

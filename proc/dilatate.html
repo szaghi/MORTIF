@@ -70,9 +70,11 @@
             <li><a href="../lists/procedures.html">Procedures</a></li>
 				
 								
+            <li><a href="../lists/types.html">Derived Types</a></li>
 				
-            <li><a href="../program/mortif_test_correctness.html">Program</a></li>
-	    
+				
+            <li><a href="../lists/programs.html">Programs</a></li>
+				
             </ul>
             </li>
 
@@ -86,8 +88,10 @@
 <li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
 
                              
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
 
-<li class="visible-xs hidden-sm visible-lg"><a href="../program/mortif_test_correctness.html">Program</a></li>
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/programs.html">Programs</a></li>
 
           </ul>
         
@@ -126,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 1.5% of total for procedures.">14 statements</a>
+	  title=" 1.3% of total for procedures.">14 statements</a>
      </li> 
      
      
@@ -193,6 +197,28 @@
   <div id="allprocs-0" class="panel-collapse collapse">
     <div class="list-group">
       
+      <a class="list-group-item" href="../proc/assert_close_d.html">assert_close_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_close_d_1.html">assert_close_d_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_close_r.html">assert_close_r</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_d.html">assert_equal_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_i.html">assert_equal_i</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_i_1.html">assert_equal_i_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_l.html">assert_equal_l</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_l_1.html">assert_equal_l_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_d.html">assert_positive_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_i.html">assert_positive_i</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_i_1.html">assert_positive_i_1</a>
+      
       <a class="list-group-item" href="../proc/contract.html">contract</a>
       
       <a class="list-group-item" href="../proc/create_indexes_file.html">create_indexes_file</a>
@@ -205,9 +231,13 @@
       
       <a class="list-group-item" href="../proc/dilatate.html">dilatate</a>
       
+      <a class="list-group-item" href="../proc/init.html">init</a>
+      
       <a class="list-group-item" href="../proc/morton2d.html">morton2D</a>
       
       <a class="list-group-item" href="../proc/morton3d.html">morton3D</a>
+      
+      <a class="list-group-item" href="../proc/print.html">print</a>
       
       <a class="list-group-item" href="../proc/test_16_16_16.html">test_16_16_16</a>
       
@@ -328,68 +358,68 @@ private elemental function dilatate(i, b, z) result(d)
 <polygon fill="white" stroke="white" points="-4,5 -4,-96 435,-96 435,5 -4,5"/>
 <!-- proc~dilatate -->
 <g id="node1" class="node"><title>proc~dilatate</title>
-<polygon fill="none" stroke="black" points="430,-70 376,-70 376,-44 430,-44 430,-70"/>
-<text text-anchor="middle" x="403" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50">dilatate</text>
-</g>
-<!-- proc~morton2d -->
-<g id="node2" class="node"><title>proc~morton2d</title>
-<a xlink:href="../proc/morton2d.html" xlink:title="morton2D">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="340,-92 280,-92 280,-66 340,-66 340,-92"/>
-<text text-anchor="middle" x="310" y="-76.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">morton2D</text>
-</a>
-</g>
-<!-- proc~morton2d&#45;&gt;proc~dilatate -->
-<g id="edge8" class="edge"><title>proc~morton2d&#45;&gt;proc~dilatate</title>
-<path fill="none" stroke="#000000" d="M340.194,-71.8572C348.429,-69.9094 357.444,-67.7767 366.009,-65.7505"/>
-<polygon fill="#000000" stroke="#000000" points="366.858,-69.1463 375.784,-63.4382 365.247,-62.3343 366.858,-69.1463"/>
+<polygon fill="none" stroke="black" points="430,-48 376,-48 376,-22 430,-22 430,-48"/>
+<text text-anchor="middle" x="403" y="-32.55" font-family="Helvetica,sans-Serif" font-size="10.50">dilatate</text>
 </g>
 <!-- proc~morton3d -->
-<g id="node3" class="node"><title>proc~morton3d</title>
+<g id="node2" class="node"><title>proc~morton3d</title>
 <a xlink:href="../proc/morton3d.html" xlink:title="morton3D">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="340,-48 280,-48 280,-22 340,-22 340,-48"/>
-<text text-anchor="middle" x="310" y="-32.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">morton3D</text>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="340,-70 280,-70 280,-44 340,-44 340,-70"/>
+<text text-anchor="middle" x="310" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">morton3D</text>
 </a>
 </g>
 <!-- proc~morton3d&#45;&gt;proc~dilatate -->
-<g id="edge10" class="edge"><title>proc~morton3d&#45;&gt;proc~dilatate</title>
-<path fill="none" stroke="#000000" d="M340.194,-42.1428C348.429,-44.0906 357.444,-46.2233 366.009,-48.2495"/>
-<polygon fill="#000000" stroke="#000000" points="365.247,-51.6657 375.784,-50.5618 366.858,-44.8537 365.247,-51.6657"/>
+<g id="edge8" class="edge"><title>proc~morton3d&#45;&gt;proc~dilatate</title>
+<path fill="none" stroke="#000000" d="M340.194,-49.8572C348.429,-47.9094 357.444,-45.7767 366.009,-43.7505"/>
+<polygon fill="#000000" stroke="#000000" points="366.858,-47.1463 375.784,-41.4382 365.247,-40.3343 366.858,-47.1463"/>
+</g>
+<!-- proc~morton2d -->
+<g id="node3" class="node"><title>proc~morton2d</title>
+<a xlink:href="../proc/morton2d.html" xlink:title="morton2D">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="340,-26 280,-26 280,-1.24345e-14 340,-3.55271e-15 340,-26"/>
+<text text-anchor="middle" x="310" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">morton2D</text>
+</a>
+</g>
+<!-- proc~morton2d&#45;&gt;proc~dilatate -->
+<g id="edge10" class="edge"><title>proc~morton2d&#45;&gt;proc~dilatate</title>
+<path fill="none" stroke="#000000" d="M340.194,-20.1428C348.429,-22.0906 357.444,-24.2233 366.009,-26.2495"/>
+<polygon fill="#000000" stroke="#000000" points="365.247,-29.6657 375.784,-28.5618 366.858,-22.8537 365.247,-29.6657"/>
 </g>
 <!-- proc~test_morton3d -->
 <g id="node4" class="node"><title>proc~test_morton3d</title>
 <a xlink:href="../proc/test_morton3d.html" xlink:title="test_morton3D">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="243,-70 161,-70 161,-44 243,-44 243,-70"/>
-<text text-anchor="middle" x="202" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_morton3D</text>
+<polygon fill="#d9534f" stroke="#d9534f" points="243,-92 161,-92 161,-66 243,-66 243,-92"/>
+<text text-anchor="middle" x="202" y="-76.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_morton3D</text>
 </a>
 </g>
 <!-- proc~test_morton3d&#45;&gt;proc~morton3d -->
 <g id="edge4" class="edge"><title>proc~test_morton3d&#45;&gt;proc~morton3d</title>
-<path fill="none" stroke="#000000" d="M243.756,-48.4942C252.28,-46.7578 261.234,-44.9338 269.706,-43.208"/>
-<polygon fill="#000000" stroke="#000000" points="270.64,-46.5898 279.74,-41.1641 269.242,-39.7307 270.64,-46.5898"/>
+<path fill="none" stroke="#000000" d="M243.756,-70.4942C252.28,-68.7578 261.234,-66.9338 269.706,-65.208"/>
+<polygon fill="#000000" stroke="#000000" points="270.64,-68.5898 279.74,-63.1641 269.242,-61.7307 270.64,-68.5898"/>
 </g>
 <!-- proc~test_16_16_16 -->
 <g id="node5" class="node"><title>proc~test_16_16_16</title>
 <a xlink:href="../proc/test_16_16_16.html" xlink:title="test_16_16_16">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="244,-26 160,-26 160,-1.24345e-14 244,-3.55271e-15 244,-26"/>
-<text text-anchor="middle" x="202" y="-10.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_16_16_16</text>
+<polygon fill="#d9534f" stroke="#d9534f" points="244,-48 160,-48 160,-22 244,-22 244,-48"/>
+<text text-anchor="middle" x="202" y="-32.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">test_16_16_16</text>
 </a>
 </g>
 <!-- proc~test_16_16_16&#45;&gt;proc~morton3d -->
 <g id="edge6" class="edge"><title>proc~test_16_16_16&#45;&gt;proc~morton3d</title>
-<path fill="none" stroke="#000000" d="M244.065,-21.5688C252.571,-23.3014 261.492,-25.1187 269.927,-26.837"/>
-<polygon fill="#000000" stroke="#000000" points="269.416,-30.3048 279.914,-28.8713 270.814,-23.4456 269.416,-30.3048"/>
+<path fill="none" stroke="#000000" d="M244.065,-43.5688C252.571,-45.3014 261.492,-47.1187 269.927,-48.837"/>
+<polygon fill="#000000" stroke="#000000" points="269.416,-52.3048 279.914,-50.8713 270.814,-45.4456 269.416,-52.3048"/>
 </g>
 <!-- program~mortif_test_correctness -->
 <g id="node6" class="node"><title>program~mortif_test_correctness</title>
 <a xlink:href="../program/mortif_test_correctness.html" xlink:title="mortif_test_correctness">
-<polygon fill="#f0ad4e" stroke="#f0ad4e" points="124,-70 4.9738e-14,-70 0,-44 124,-44 124,-70"/>
-<text text-anchor="middle" x="62" y="-54.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mortif_test_correctness</text>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="124,-92 4.9738e-14,-92 0,-66 124,-66 124,-92"/>
+<text text-anchor="middle" x="62" y="-76.55" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mortif_test_correctness</text>
 </a>
 </g>
 <!-- program~mortif_test_correctness&#45;&gt;proc~test_morton3d -->
 <g id="edge2" class="edge"><title>program~mortif_test_correctness&#45;&gt;proc~test_morton3d</title>
-<path fill="none" stroke="#000000" d="M124.221,-57C132.944,-57 141.829,-57 150.327,-57"/>
-<polygon fill="#000000" stroke="#000000" points="150.463,-60.5001 160.463,-57 150.463,-53.5001 150.463,-60.5001"/>
+<path fill="none" stroke="#000000" d="M124.221,-79C132.944,-79 141.829,-79 150.327,-79"/>
+<polygon fill="#000000" stroke="#000000" points="150.463,-82.5001 160.463,-79 150.463,-75.5001 150.463,-82.5001"/>
 </g>
 </g>
 </svg>
@@ -560,6 +590,28 @@ private elemental function dilatate(i, b, z) result(d)
   <div id="allprocs-1" class="panel-collapse collapse">
     <div class="list-group">
       
+      <a class="list-group-item" href="../proc/assert_close_d.html">assert_close_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_close_d_1.html">assert_close_d_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_close_r.html">assert_close_r</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_d.html">assert_equal_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_i.html">assert_equal_i</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_i_1.html">assert_equal_i_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_l.html">assert_equal_l</a>
+      
+      <a class="list-group-item" href="../proc/assert_equal_l_1.html">assert_equal_l_1</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_d.html">assert_positive_d</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_i.html">assert_positive_i</a>
+      
+      <a class="list-group-item" href="../proc/assert_positive_i_1.html">assert_positive_i_1</a>
+      
       <a class="list-group-item" href="../proc/contract.html">contract</a>
       
       <a class="list-group-item" href="../proc/create_indexes_file.html">create_indexes_file</a>
@@ -572,9 +624,13 @@ private elemental function dilatate(i, b, z) result(d)
       
       <a class="list-group-item" href="../proc/dilatate.html">dilatate</a>
       
+      <a class="list-group-item" href="../proc/init.html">init</a>
+      
       <a class="list-group-item" href="../proc/morton2d.html">morton2D</a>
       
       <a class="list-group-item" href="../proc/morton3d.html">morton3D</a>
+      
+      <a class="list-group-item" href="../proc/print.html">print</a>
       
       <a class="list-group-item" href="../proc/test_16_16_16.html">test_16_16_16</a>
       
