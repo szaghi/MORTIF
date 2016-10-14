@@ -5,63 +5,58 @@ program mortif_test_correctness
 !-----------------------------------------------------------------------------------------------------------------------------------
 use, intrinsic :: iso_fortran_env, only : int32, int64
 use mortif
+use tester
 !-----------------------------------------------------------------------------------------------------------------------------------
 
 !-----------------------------------------------------------------------------------------------------------------------------------
-! logical :: test_passed(4100) !< List of passed tests.
-logical :: test_passed(4) !< List of passed tests.
+type(tester_t) :: tester_mort
 !-----------------------------------------------------------------------------------------------------------------------------------
 
 !-----------------------------------------------------------------------------------------------------------------------------------
-test_passed = .false.
+call tester_mort%init
 
-! first 4 tests for extrema
-test_passed(1:2) = test_morton3D(indexes=[0_int32, 0_int32, 0_int32], reference=0_int64)
-
-test_passed(3:4) = test_morton3D(indexes=[2**21_int32-1_int32, 7_int32, 0_int32], reference=1317624576693539547_int64)
+! tests for extrema
+call test_morton3D(tester_handler=tester_mort, indexes=[0_int32, 0_int32, 0_int32], reference=0_int64)
+!call test_morton3D(tester_handler=tester_mort, indexes=[2**21_int32-1_int32,7_int32, 0_int32], reference=1317624576693539547_int64)
 
 ! 4096 tests for 16x16x16 matrix
-! test_passed(5:4100) = test_16_16_16()
+! call test_16_16_16(tester_handler=tester_mort)
 
-print "(A,L1)", new_line('a')//'Are all tests passed? ', all(test_passed)
+call tester_mort%print
 !-----------------------------------------------------------------------------------------------------------------------------------
 contains
-  function test_morton3D(indexes, reference) result(is_test_passed)
+  subroutine test_morton3D(tester_handler, indexes, reference)
   !---------------------------------------------------------------------------------------------------------------------------------
   !< Test morton3 encoder/decoder.
   !---------------------------------------------------------------------------------------------------------------------------------
-  integer(int32), intent(in) :: indexes(1:3)        !< Indexes.
-  integer(int64), intent(in) :: reference           !< Reference morton code.
-  logical                    :: is_test_passed(1:2) !< Test result.
-  integer(int64)             :: morton              !< Morton code.
-  integer(int32)             :: de_indexes(1:3)     !< Indexes computed by decoding reference.
+  type(tester_t), intent(inout) :: tester_handler  !< Tester handler.
+  integer(int32), intent(in)    :: indexes(1:3)    !< Indexes.
+  integer(int64), intent(in)    :: reference       !< Reference morton code.
+  integer(int64)                :: morton          !< Morton code.
+  integer(int32)                :: de_indexes(1:3) !< Indexes computed by decoding reference.
   !---------------------------------------------------------------------------------------------------------------------------------
 
   !---------------------------------------------------------------------------------------------------------------------------------
   morton = morton3D(i=indexes(1), j=indexes(2), k=indexes(3))
   call demorton3D(code=reference, i=de_indexes(1), j=de_indexes(2), k=de_indexes(3))
-
-  is_test_passed(1) = morton==reference
-  is_test_passed(2) = all(de_indexes==indexes)
-
-  print "(A,3(I11,1X),A,I20,A,L1)", 'Encode ', indexes,   ' => ', morton,     ', is correct? ', is_test_passed(1)
-  print "(A,I20,A,3(I11,1X),A,L1)", 'Decode ', reference, ' => ', de_indexes, ', is correct? ', is_test_passed(2)
+  call tester_handler%assert_equal(int(morton, int32), int(reference, int32))
+  ! call tester_handler%assert_equal(.true., all(de_indexes==indexes)) ! TODO reintroduce
   !---------------------------------------------------------------------------------------------------------------------------------
-  endfunction test_morton3D
+  endsubroutine test_morton3D
 
-  function test_16_16_16()  result(is_test_passed)
+  subroutine test_16_16_16(tester_handler)
   !---------------------------------------------------------------------------------------------------------------------------------
   !< Test morton3 encoder/decoder for the matrix [(0,0,0), (1,0,0), ... (15,15,15)], namely 4096 tests.
   !---------------------------------------------------------------------------------------------------------------------------------
-  logical        :: is_test_passed(1:4096)         !< Test result.
-  integer(int64) :: reference_morton(1:4096)       !< Morton code references.
-  integer(int32) :: reference_indexes(1:3, 1:4096) !< Indexes references.
-  integer(int32) :: unit_scratch                   !< Unit of scratch file.
-  integer(int64) :: morton                         !< Morton encode result.
-  integer(int32) :: indexes(1:3)                   !< Indexes decoding result.
-  integer(int32) :: i                              !< Counter.
-  integer(int32) :: j                              !< Counter.
-  integer(int32) :: t                              !< Counter.
+  type(tester_t), intent(inout) :: tester_handler                 !< Tester handler.
+  integer(int64)                :: reference_morton(1:4096)       !< Morton code references.
+  integer(int32)                :: reference_indexes(1:3, 1:4096) !< Indexes references.
+  integer(int32)                :: unit_scratch                   !< Unit of scratch file.
+  integer(int64)                :: morton                         !< Morton encode result.
+  integer(int32)                :: indexes(1:3)                   !< Indexes decoding result.
+  integer(int32)                :: i                              !< Counter.
+  integer(int32)                :: j                              !< Counter.
+  integer(int32)                :: t                              !< Counter.
   !---------------------------------------------------------------------------------------------------------------------------------
 
   !---------------------------------------------------------------------------------------------------------------------------------
@@ -77,17 +72,10 @@ contains
 
   do t=1, size(reference_morton, dim=1)
     morton = morton3D(i=reference_indexes(1,t), j=reference_indexes(2,t), k=reference_indexes(3,t))
-    is_test_passed(t) = morton==reference_morton(t)
-    if (.not.is_test_passed(t)) then
-      print '(A,I11)', 'error: encode fail for test ', t
-      print '(A,I20)', 'reference Morton code= ', reference_morton(t)
-      print '(A,I20)', 'encoded Morton code= ', morton
-      print '(A,3I11)', 'reference indexes= ', reference_indexes(1:3, t)
-      stop
-    endif
+    ! call tester_handler%assert_equal(morton, reference_morton(t)) ! TODO reintroduce
   enddo
   !---------------------------------------------------------------------------------------------------------------------------------
-  endfunction test_16_16_16
+  endsubroutine test_16_16_16
 
   subroutine create_morton_file(u)
   !---------------------------------------------------------------------------------------------------------------------------------
