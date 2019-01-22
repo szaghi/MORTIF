@@ -65,5 +65,25 @@ def morton2_bis(x, y):
     m += 2**(2*j)*xi + 2**(2*j+1)*yi
   return m/4
 
+def morton3_with_levels(x, y, z, l, max_l):
+  lev_rescale = 2**(max_l-l)
+  x_scaled = x*lev_rescale
+  y_scaled = y*lev_rescale
+  z_scaled = z*lev_rescale
+  return morton3(x_scaled, y_scaled, z_scaled)
+
 if __name__ == '__main__':
-  print(morton3(0, 1, 0))
+  print(morton3(3, 2, 4))
+  # points from the Figure 8.7 from
+  # http://flash.uchicago.edu/site/flashcode/user_support/flash_ug_devel/node58.html
+  # coordinates logic follows the figure from
+  # https://homes.esat.kuleuven.be/~keppens/amrstructure.html
+  point_list = [ (0, 0,  0, 1, 3), (1, 0,  0, 1, 3), (0, 1,  0, 1, 3), (1, 1,  0, 1, 3),
+                 (2, 0,  0, 1, 3), (3, 0,  0, 1, 3), (2, 1,  0, 1, 3), (3, 1,  0, 1, 3),
+                 (0, 2,  0, 1, 3), (1, 2,  0, 1, 3), (0, 3,  0, 1, 3), (2, 6,  0, 2, 3),
+                 (3, 6,  0, 2, 3), (2, 7,  0, 2, 3), (6, 14, 0, 3, 3), (7, 14, 0, 3, 3),
+                 (6, 15, 0, 3, 3), (7, 15, 0, 3, 3), (2, 2,  0, 1, 3), (3, 2,  0, 1, 3),
+                 (4, 6,  0, 2, 3), (5, 6,  0, 2, 3), (4, 7,  0, 2, 3), (5, 7,  0, 2, 3),
+                 (6, 6,  0, 2, 3), (7, 6,  0, 2, 3), (6, 7,  0, 2, 3), (7, 7,  0, 2, 3) ]
+  for point in point_list:
+      print("point: "+str(point)," - morton: "+str(morton3_with_levels(*point)))
