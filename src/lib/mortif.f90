@@ -11,18 +11,13 @@ module mortif
 !< [2] *On Spatial Orders and Location Codes*, Stocco, LJ and Schrack, G, IEEE Transaction on Computers, vol 58, n 3, March 2009.
 !< [3] *Out-of-Core Construction of Sparse Voxel Octrees*, J. Baert, A. Lagae and Ph. Dutré, Proceedings of the Fifth ACM
 !< SIGGRAPH/Eurographics conference on High-Performance Graphics, 2013.
-!-----------------------------------------------------------------------------------------------------------------------------------
 use penf
-!-----------------------------------------------------------------------------------------------------------------------------------
 
-!-----------------------------------------------------------------------------------------------------------------------------------
 implicit none
 save
 private
 public :: morton2D, demorton2D, morton3D, demorton3D
-!-----------------------------------------------------------------------------------------------------------------------------------
 
-!-----------------------------------------------------------------------------------------------------------------------------------
 ! Binary masks: used into the bits dilating and contracting algorithms.
 !> 0000000000000000000000000000000011111111111111111111111111111111.
 integer(I8P) , parameter :: mask32_32=int(Z'FFFFFFFF',         I8P)
@@ -73,72 +68,57 @@ real(R4P), parameter :: log10_2_inv = 1._R4P/log10(2._R4P) !< Real parameter for
 !<
 !< The number of shifts is computed by \(2^{Ns}=b\) where `b` is the significant bits. As a consequence
 !< \(Ns=\frac{log(b)}{log2}\) therefore it is convenient to store the value of \(\frac{1}{log2}\).
-!-----------------------------------------------------------------------------------------------------------------------------------
 contains
   elemental function dilatate(i, b, z) result(d)
-  !---------------------------------------------------------------------------------------------------------------------------------
   !< Dilatate integer of 32 bits to integer of 64 bits.
   !<
   !< See *On Spatial Orders and Location Codes*, Stocco, LJ and Schrack, G, IEEE Transaction on Computers, vol 58, n 3, March 2009.
   !< The resulting integer has 64 bits; it has only `b` significant bits interleaved by `z` zeros: `bb/zx0/bb-1/zx0../b1/zx0/b0`;
   !< e.g. for `(b=4, z=1)`: `b3/b2/b1/b0 => b3/0/b2/0/b1/0/b0`.
-  !---------------------------------------------------------------------------------------------------------------------------------
   integer(I4P), intent(in) :: i !< Input integer.
   integer(I2P), intent(in) :: b !< Number of significant bits of 'i' (2/4/8/16/32).
   integer(I1P), intent(in) :: z !< Number of zero 'i' (1/2).
   integer(I8P)             :: d !< Dilated integer.
   integer(I1P)             :: l !< Counter.
   integer(I1P)             :: m !< Counter.
-  !---------------------------------------------------------------------------------------------------------------------------------
 
-  !---------------------------------------------------------------------------------------------------------------------------------
   l = int(log10(b*1._R4P)*log10_2_inv, I1P)
   d = int(i, I8P)
   d = iand(d, signif(l))
   do m=l, 1_I1P, -1_I1P !(5/4/3/2/1,1,-1)
     d = iand(ior(d, ishft(d, shft(m,z))), mask(m,z))
   enddo
-  !---------------------------------------------------------------------------------------------------------------------------------
   endfunction dilatate
 
   elemental subroutine contract(i, b, z, c)
-  !---------------------------------------------------------------------------------------------------------------------------------
   !< Contract integer of 64 bits into integer of 32 bits.
   !<
   !< See *On Spatial Orders and Location Codes*, Stocco, LJ and Schrack, G, IEEE Transaction on Computers, vol 58, n 3, March 2009.
   !< The resulting integer(int8/int16/int32) has only `b' significant bits obtained by the following contraction:
   !< if `bb/zx0/bb-1/zx0../b1/zx0/b0 => bb/bb-1/.../b1/b0`; e.g. for `(b=4,z=1)`: `b3/0/b2/0/b1/0/b0 => b3/b2/b1/b0`.
-  !---------------------------------------------------------------------------------------------------------------------------------
   integer(I8P), intent(in)  :: i !< Input integer.
   integer(I2P), intent(in)  :: b !< Number of significant bits of 'i' (2/4/8/16/32).
   integer(I1P), intent(in)  :: z !< Number of zero 'i' (1/2).
   integer(I4P), intent(out) :: c !< Contracted integer.
   integer(I8P)              :: d !< Temporary dilated integer.
   integer(I1P)              :: m !< Counter.
-  !---------------------------------------------------------------------------------------------------------------------------------
 
-  !---------------------------------------------------------------------------------------------------------------------------------
   d = iand(i, mask(1,z))
   do m=1_I1P, int(log10(b*1._R4P)*log10_2_inv, I1P), 1_I1P !(1,5/4/3/2/1)
     d = iand(ieor(d, ishft(d, -shft(m,z))), mask(m+1,z))
   enddo
   c = int(d, I4P)
-  !---------------------------------------------------------------------------------------------------------------------------------
   endsubroutine contract
 
   elemental function morton2D(i, j, b) result(code)
-  !---------------------------------------------------------------------------------------------------------------------------------
   !< Encode 2 integer (32 bits) indexes into 1 integer (64 bits) Morton's code.
-  !---------------------------------------------------------------------------------------------------------------------------------
   integer(I4P), intent(in)           :: i    !< I index.
   integer(I4P), intent(in)           :: j    !< J index.
   integer(I2P), intent(in), optional :: b    !< Number of significant bits of 'i' (2/4/8/16/32).
   integer(I8P)                       :: code !< Morton's code.
   integer(I8P)                       :: di   !< Dilated indexe.
   integer(I8P)                       :: dj   !< Dilated indexe.
-  !---------------------------------------------------------------------------------------------------------------------------------
 
-  !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
     di = dilatate(i=i, b=b, z=1_I1P)
     dj = dilatate(i=j, b=b, z=1_I1P)
@@ -147,20 +127,15 @@ contains
     dj = dilatate(i=j, b=32_I2P, z=1_I1P)
   endif
   code = ishft(dj,1) + di
-  !---------------------------------------------------------------------------------------------------------------------------------
   endfunction morton2D
 
   elemental subroutine demorton2D(code, i, j, b)
-  !---------------------------------------------------------------------------------------------------------------------------------
   !< Decode 1 integer (64 bits) Morton's code into 2 integer (32 bits) indexes.
-  !---------------------------------------------------------------------------------------------------------------------------------
   integer(I8P), intent(in)           :: code !< Morton's code.
   integer(I4P), intent(inout)        :: i    !< I index.
   integer(I4P), intent(inout)        :: j    !< J index.
   integer(I2P), intent(in), optional :: b    !< Number of significant bits of 'i' (2/4/8/16/32).
-  !---------------------------------------------------------------------------------------------------------------------------------
 
-  !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
     call contract(i=code,           b=b, z=1_I1P, c=i)
     call contract(i=ishft(code,-1), b=b, z=1_I1P, c=j)
@@ -168,15 +143,12 @@ contains
     call contract(i=code,           b=32_I2P, z=1_I1P, c=i)
     call contract(i=ishft(code,-1), b=32_I2P, z=1_I1P, c=j)
   endif
-  !---------------------------------------------------------------------------------------------------------------------------------
   endsubroutine demorton2D
 
   elemental function morton3D(i, j, k, b) result(code)
-  !---------------------------------------------------------------------------------------------------------------------------------
   !< Encode 3 integer (32 bits) indexes into 1 integer (64 bits) Morton's code.
   !<
   !< @note Due to 64 bits limit of the Morton's code, the 3 allowed-side of indexes is limited to 21 bits.
-  !---------------------------------------------------------------------------------------------------------------------------------
   integer(I4P), intent(in)           :: i    !< I index.
   integer(I4P), intent(in)           :: j    !< J index.
   integer(I4P), intent(in)           :: k    !< K index.
@@ -185,9 +157,7 @@ contains
   integer(I8P)                       :: di   !< Dilated indexes.
   integer(I8P)                       :: dj   !< Dilated indexes.
   integer(I8P)                       :: dk   !< Dilated indexes.
-  !---------------------------------------------------------------------------------------------------------------------------------
 
-  !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
     di = dilatate(i=i, b=b, z=2_I1P)
     dj = dilatate(i=j, b=b, z=2_I1P)
@@ -198,23 +168,18 @@ contains
     dk = dilatate(i=k, b=32_I2P, z=2_I1P)
   endif
   code = ishft(dk,2) + ishft(dj,1) + di
-  !---------------------------------------------------------------------------------------------------------------------------------
   endfunction morton3D
 
   elemental subroutine demorton3D(code, i, j, k, b)
-  !---------------------------------------------------------------------------------------------------------------------------------
   !< Decode 1 integer (64 bits) Morton's code into 3 integer (16 bits) indexes.
   !<
   !< @note Due to 64 bits limit of the Morton's code, the 3 allowed-side of indexes is limited to 21 bits.
-  !---------------------------------------------------------------------------------------------------------------------------------
   integer(I8P), intent(in)           :: code !< Morton's code.
   integer(I4P), intent(inout)        :: i    !< I index.
   integer(I4P), intent(inout)        :: j    !< J index.
   integer(I4P), intent(inout)        :: k    !< K index.
   integer(I2P), intent(in), optional :: b    !< Number of significant bits of 'i' (2/4/8/16).
-  !---------------------------------------------------------------------------------------------------------------------------------
 
-  !---------------------------------------------------------------------------------------------------------------------------------
   if (present(b)) then
     call contract(i=code,           b=b, z=2_I1P, c=i)
     call contract(i=ishft(code,-1), b=b, z=2_I1P, c=j)
@@ -224,6 +189,5 @@ contains
     call contract(i=ishft(code,-1), b=32_I2P, z=2_I1P, c=j)
     call contract(i=ishft(code,-2), b=32_I2P, z=2_I1P, c=k)
   endif
-  !---------------------------------------------------------------------------------------------------------------------------------
   endsubroutine demorton3D
 endmodule mortif
