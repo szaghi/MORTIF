@@ -1,6 +1,7 @@
 language: generic
 
 sudo: false
+dist: trusty
 
 cache:
   apt: true
@@ -14,7 +15,7 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - gfortran-6
+      - gfortran-9
       - binutils
       - python-pip
       - graphviz
@@ -22,12 +23,12 @@ addons:
 env:
   global:
     - MAKECOVERAGE="FoBiS.py rule -ex makecoverage"
-    - MAKEDOC="./scripts/makedoc.sh szaghi/MORTIF"
+    - MAKEDOC="FoBiS.py rule -ex makedoc"
     - CLEAN="FoBiS.py rule -ex clean"
     - MAKETAR="FoBiS.py rule -ex maketar"
 
 before_install:
-  - git submodule update --init --recursive
+  - git submodule update --init
 
 install:
   - |
@@ -35,14 +36,14 @@ install:
       mkdir "$HOME/.local/bin"
     fi
   - export PATH="$HOME/.local/bin:$PATH"
-  - export FC=/usr/bin/gfortran-6
-  - ln -fs /usr/bin/gfortran-6 "$HOME/.local/bin/gfortran" && gfortran --version
-  - ls -l /usr/bin/gfortran-6
-  - ln -fs /usr/bin/gcov-6 "$HOME/.local/bin/gcov" && gcov --version
+  - export FC=/usr/bin/gfortran-9
+  - ln -fs /usr/bin/gfortran-9 "$HOME/.local/bin/gfortran" && gfortran --version
+  - ls -l /usr/bin/gfortran-9
+  - ln -fs /usr/bin/gcov-9 "$HOME/.local/bin/gcov" && gcov --version
   - pip install --user --upgrade pygooglechart
   - pip install --user --upgrade graphviz
   - pip install --user --upgrade FoBiS.py
-  - pip install --user --upgrade markdown-checklist
+  - pip install --user --upgrade markdown-checklist 
   - pip install --user --upgrade ford
 
 script:
@@ -69,3 +70,4 @@ deploy:
   overwrite: true
   on:
     tags: true
+    repo: szaghi/MORTIF
