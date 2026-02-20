@@ -1,382 +1,97 @@
-<a name="top"></a>
+# MORTIF
 
-# MORTIF [![GitHub tag](https://img.shields.io/github/tag/szaghi/MORTIF.svg)]() [![Join the chat at https://gitter.im/szaghi/MORTIF](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/szaghi/MORTIF?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+**MORTon Indexer (Z-order) Fortran environment** — a pure Fortran 2003+ library to encode and decode multidimensional integer indexes into [Morton's Z-order](https://en.wikipedia.org/wiki/Z-order_curve).
 
-[![License](https://img.shields.io/badge/license-GNU%20GeneraL%20Public%20License%20v3,%20GPLv3-blue.svg)]()
-[![License](https://img.shields.io/badge/license-BSD2-red.svg)]()
-[![License](https://img.shields.io/badge/license-BSD3-red.svg)]()
-[![License](https://img.shields.io/badge/license-MIT-red.svg)]()
-
-[![Status](https://img.shields.io/badge/status-stable-brightgreen.svg)]()
-[![Build Status](https://travis-ci.org/szaghi/MORTIF.svg?branch=master)](https://travis-ci.org/szaghi/MORTIF)
-[![Coverage Status](https://img.shields.io/codecov/c/github/szaghi/MORTIF.svg)](http://codecov.io/github/szaghi/MORTIF?branch=master)
-
-### MORTIF, MORTon Indexer (Z-order) Fortran environment
-
-A KISS pure Fortran Library to encode/decode, namely *to map*, multidimensional (integer) indexes into the Morton's index (Z-order)
-
-- MORTIF is a pure Fortran (KISS) library for Morton's ordering;
-- MORTIF is Fortran 2003+ standard compliant;
-- MORTIF is OOP designed;
-- MORTIF is a Free, Open Source Project.
-
-#### Issues
-
-[![GitHub issues](https://img.shields.io/github/issues/szaghi/MORTIF.svg)]()
-[![Ready in backlog](https://badge.waffle.io/szaghi/MORTIF.png?label=ready&title=Ready)](https://waffle.io/szaghi/MORTIF)
-[![In Progress](https://badge.waffle.io/szaghi/MORTIF.png?label=in%20progress&title=In%20Progress)](https://waffle.io/szaghi/MORTIF)
-[![Open bugs](https://badge.waffle.io/szaghi/MORTIF.png?label=bug&title=Open%20Bugs)](https://waffle.io/szaghi/MORTIF)
-
-#### Compiler Support
-
-[![Compiler](https://img.shields.io/badge/GNU-v6.1.x+-brightgreen.svg)]()
-[![Compiler](https://img.shields.io/badge/Intel-v16.x+-brightgreen.svg)]()
-[![Compiler](https://img.shields.io/badge/IBM%20XL-not%20tested-yellow.svg)]()
-[![Compiler](https://img.shields.io/badge/g95-not%20tested-yellow.svg)]()
-[![Compiler](https://img.shields.io/badge/NAG-not%20tested-yellow.svg)]()
-[![Compiler](https://img.shields.io/badge/PGI-not%20tested-yellow.svg)]()
+[![CI](https://github.com/szaghi/MORTIF/actions/workflows/ci.yml/badge.svg)](https://github.com/szaghi/MORTIF/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/szaghi/MORTIF.svg)](https://app.codecov.io/gh/szaghi/MORTIF)
+[![GitHub tag](https://img.shields.io/github/tag/szaghi/MORTIF.svg)](https://github.com/szaghi/MORTIF/releases)
+[![License](https://img.shields.io/badge/license-GPLv3%20%7C%20BSD%20%7C%20MIT-blue.svg)](#copyrights)
 
 ---
 
-| [What is MORTIF?](#what-is-mortif) | [Main features](#main-features) | [Copyrights](#copyrights) | [Documentation](#documentation) | [Install](#install) | [References](#references) |
+## Features
+
+- Encode two 32-bit indexes into a 64-bit Morton code with `morton2D`
+- Encode three 32-bit indexes into a 64-bit Morton code with `morton3D` (up to 21 significant bits per axis)
+- Decode Morton codes back to indexes with `demorton2D` / `demorton3D`
+- All four procedures are `elemental` — apply directly to scalars or arrays
+- Pure Fortran, no C extensions, single 194-line module
+
+**[Documentation](https://szaghi.github.io/MORTIF/)** | **[API Reference](https://szaghi.github.io/MORTIF/api/)**
 
 ---
 
-## What is MORTIF?
+## Authors
 
-In mathematical analysis and computer science, Z-order, Morton order, or Morton code is a function which maps multidimensional data to one dimension while preserving locality of the data points. It was introduced in 1966 by G. M. Morton [[1]](#morton-1966). The z-value of a point in multidimensions is simply calculated by interleaving the binary representations of its coordinate values, see [wikipedia](https://en.m.wikipedia.org/wiki/Z-order_curve).
+- Stefano Zaghi — [@szaghi](https://github.com/szaghi)
 
-> Morton's code (Z-order) is a scheme to map multi-dimensional arrays onto to a linear one with a great deal of spatial locality.
-
-MORTIF is a pure Fortran library to encode/decode multidimensional indexes to/from Morton's order. For the implementation details see [[2]](#stocco-2009) and [[3]](#baert-2013).
-
-Go to [Top](#top)
-
-## Main features
-
-Here the main features are listed.
-
-* [x] User-friendly methods to encode/decode multidimensional indexes;
-* [x] Test Driven Developed (TDD);
-* [x] collaborative developed;
-* [x] well documented;
-* [x] free!
-
-Any feature request is welcome.
-
-Go to [Top](#top)
+Contributions are welcome — see the [Contributing](https://szaghi.github.io/MORTIF/guide/contributing) page.
 
 ## Copyrights
 
-MORTIF is a Free and Open Source Software (FOSS), it is distributed under a **very permissive** multi-licensing system: selectable licenses are [GPLv3](http://www.gnu.org/licenses/gpl-3.0.html), [BSD2-Clause](http://opensource.org/licenses/BSD-2-Clause), [BSD3-Clause](http://opensource.org/licenses/BSD-3-Clause) and [MIT](http://opensource.org/licenses/MIT), feel free to select the license that best matches your workflow.
+This project is distributed under a multi-licensing system:
 
-> Anyone is interest to use, to develop or to contribute to MORTIF is welcome.
+- **FOSS projects**: [GPL v3](http://www.gnu.org/licenses/gpl-3.0.html)
+- **Closed source / commercial**: [BSD 2-Clause](http://opensource.org/licenses/BSD-2-Clause), [BSD 3-Clause](http://opensource.org/licenses/BSD-3-Clause), or [MIT](http://opensource.org/licenses/MIT)
 
-More details can be found on [wiki](https://github.com/szaghi/MORTIF/wiki/Copyrights).
+> Anyone interested in using, developing, or contributing to this project is welcome — pick the license that best fits your needs.
 
-Go to [Top](#top)
+---
 
-## Documentation
+## Quick start
 
-Besides this README file the MORTIF documentation is contained into its own [wiki](https://github.com/szaghi/MORTIF/wiki). Detailed documentation of the API is contained into the [GitHub Pages](http://szaghi.github.io/MORTIF/index.html) that can also be created locally by means of [ford tool](https://github.com/cmacmackin/ford).
-
-### MORTIF in action
-
-MORTIF is a damn simple library, it exposes only 4 (elemental) procedures:
-
-+ `morton2D/demorton2D` to encode/decode 2D indexes;
-+ `morton3D/demorton3D` to encode/decode 3D indexes.
-
-The encoding procedure are *function* returning the 64 bits Morton's code, while the decoding procedures are *subroutine* returning 2 or 3 32 bits decoded indexes.
-
-#### Encoding limitations
-
-MORTIF assumes that that the Morton's code are stored into a 64 bits integer, thus the following limitations hold for encoding indexes:
-
-+ 2D indexes can have **at most 32 significant bits**, namely you can encode at most 2 `2^32-1` indexes;
-+ 3D indexes can have **at most 21 significant bits**, namely you can encode at most 3 `2^21-1` indexes.
-
-> All the procedures accept 32 bits indexes and 64 bits Morton's code, is up to the user to check **to not overcome** the limit of `2^21-1` for the 3D encoder, no check is performed (for not introduce computational overhead).
-
-#### Encode example
-
-Encode a tuple of indexes is a simple as
-
-```fortran
-use, intrinsic :: iso_fortran_env, only : int32
-use mortif
-print '(A,I20)', "Morton's code of {0,1,0}: ", morton3D(i=0_int32, j=1_int32, k=0_int32)
-! output: Morton's code of {0,1,0}: 2
-```
-
-> Similarly for 2D encoding.
-
-#### Decode example
-
-Decode a Morton's code is a simple as
+Encode a 3D index tuple and decode it back:
 
 ```fortran
 use, intrinsic :: iso_fortran_env, only : int32, int64
 use mortif
-integer(int32):: indexes(3) ! Indexes generated by decoding.
-call demorton3D(code=2_int32, i=indexes(1), j=indexes(2), k=indexes(3))
-print '(A,3(I11,1X))', "Decode indexes of Morton's code {2}: ", indexes
-! output: Decode indexes of Morton's code {2}: 0, 1, 0
+implicit none
+integer(int32) :: i, j, k
+integer(int64) :: code
+
+code = morton3D(i=0_int32, j=1_int32, k=0_int32)
+print '(A,I20)', "Morton code of {0,1,0}: ", code   ! 2
+
+call demorton3D(code=code, i=i, j=j, k=k)
+print '(A,3(I0,1X))', "Decoded: ", i, j, k          ! 0 1 0
 ```
 
-> Similarly for 2D decoding.
+Elemental use on arrays:
 
-Go to [Top](#top)
+```fortran
+use, intrinsic :: iso_fortran_env, only : int32, int64
+use mortif
+implicit none
+integer(int32) :: ix(4) = [0, 1, 2, 3]
+integer(int32) :: iy(4) = [0, 0, 1, 1]
+integer(int64) :: codes(4)
+
+codes = morton2D(i=ix, j=iy)   ! [0, 1, 4, 5]
+```
+
+---
 
 ## Install
 
-MORTIF is a Fortran library composed by several modules.
+### Clone and build with FoBiS.py
 
-> Before download and compile the library you must check the [requirements](https://github.com/szaghi/MORTIF/wiki/Requirements).
-
-To download and build the project two main ways are available:
-
-+ exploit the [install script](#install-script) that can be downloaded [here](https://github.com/szaghi/MORTIF/releases/latest)
-+ [manually download and build](#manually-download-and-build):
-  + [download](#download)
-  + [build](#build)
-
----
-
-### install script
-
-MORTIF ships a bash script (downloadable from [here](https://github.com/szaghi/MORTIF/releases/latest)) that is able to automatize the download and build steps. The script `install.sh` has the following usage:
-
-```shell
-→ ./install.sh
-Install script of MORTIF
-Usage:
-
-install.sh --help|-?
-    Print this usage output and exit
-
-install.sh --download|-d <arg> [--verbose|-v]
-    Download the project
-
-    --download|-d [arg]  Download the project, arg=git|wget to download with git or wget respectively
-    --verbose|-v         Output verbose mode activation
-
-install.sh --build|-b <arg> [--verbose|-v]
-    Build the project
-
-    --build|-b [arg]  Build the project, arg=fobis|make|cmake to build with FoBiS.py, GNU Make or CMake respectively
-    --verbose|-v      Output verbose mode activation
-
-Examples:
-
-install.sh --download git
-install.sh --build make
-install.sh --download wget --build cmake
-```
-
-> The script does not cover all possibilities.
-
-The script operation modes are 2 (*collapsible* into one-single-mode):
-
-+ download a new fresh-clone of the latest master-release by means of:
-  + [git](https://git-scm.com/);
-  + [wget](https://www.gnu.org/software/wget/) (also [curl](https://curl.haxx.se/) is necessary);
-+ build a fresh-clone project as static-linked library by means of:
-  + [FoBiS.py](https://github.com/szaghi/FoBiS);
-  + [GNU Make](https://www.gnu.org/software/make/);
-  + [CMake](https://cmake.org/);
-
-> you can mix any of the above combinations accordingly to the tools available.
-
-Typical usages are:
-
-```shell
-# download and prepare the project by means of git and build with GNU Make
-install.sh --dowload git --build make
-# download and prepare the project by means of wget (curl) and build with CMake
-install.sh --dowload wget --build cmake
-# download and prepare the project by means of git and build with FoBiS.py
-install.sh --dowload git --build fobis
-```
-
----
-
-### manually download and build
-
-#### download
-
-To download all the available releases and utilities (fobos, license, readme, etc...), it can be convenient to _clone_ whole the project:
-
-```shell
-git clone --recursive https://github.com/szaghi/MORTIF
+```sh
+git clone https://github.com/szaghi/MORTIF --recursive
 cd MORTIF
-git submodule update --init --recursive
+FoBiS.py build -mode tests-gnu
+./scripts/run_tests.sh
 ```
 
-Alternatively, you can directly download a release from GitHub server, see the [ChangeLog](https://github.com/szaghi/MORTIF/wiki/ChangeLog).
+### Build with CMake
 
-#### build
-
-The most easy way to compile MORTIF is to use [FoBiS.py](https://github.com/szaghi/FoBiS) within the provided fobos file.
-
-Consequently, it is strongly encouraged to install [FoBiS.py](https://github.com/szaghi/FoBiS#install).
-
-| [Build by means of FoBiS](#build-by-means-of-fobis) | [Build by means of GNU Make](#build-by-means-of-gnu-make) | [Build by means of CMake](#build-by-means-of-cmake) |
-
----
-
-#### build by means of FoBiS
-
-FoBiS.py is a KISS tool for automatic building of modern Fortran projects. Providing very few options, FoBiS.py is able to build almost automatically complex Fortran projects with cumbersome inter-modules dependency. This removes the necessity to write complex makefile. Moreover, providing a very simple options file (in the FoBiS.py nomenclature indicated as `fobos` file) FoBiS.py can substitute the (ab)use of makefile for other project stuffs (build documentations, make project archive, etc...). MORTIF is shipped with a fobos file that can build the library in both _static_ and _shared_ forms and also build the `Test_Driver` program. The provided fobos file has several building modes.
-
-##### listing fobos building modes
-Typing:
-```bash
-FoBiS.py build -lmodes
-```
-the following message should be printed:
-```bash
-The fobos file defines the following modes:
- - "shared-gnu"
-  - "static-gnu"
-  - "test-driver-gnu"
-  - "shared-gnu-debug"
-  - "static-gnu-debug"
-  - "test-driver-gnu-debug"
-  - "shared-intel"
-  - "static-intel"
-  - "test-driver-intel"
-  - "shared-intel-debug"
-  - "static-intel-debug"
-  - "test-driver-intel-debug"
-```
-The modes should be self-explicative: `shared`, `static` and `test-driver` are the modes for building (in release, optimized form) the shared and static versions of the library and the Test Driver program, respectively. The other 3 modes are the same, but in debug form instead of release one. `-gnu` use the `GNU gfortran` compiler while `-intel` the Intel one.
-
-##### building the library
-The `shared` or `static` directories are created accordingly to the form of the library built. The compiled objects and mod files are placed inside this directory, as well as the linked library.
-###### release shared library
-```bash
-FoBiS.py build -mode shared-gnu
-```
-###### release static library
-```bash
-FoBiS.py build -mode static-gnu
-```
-###### debug shared library
-```bash
-FoBiS.py build -mode shared-gnu-debug
-```
-###### debug static library
-```bash
-FoBiS.py build -mode static-gnu-debug
+```sh
+mkdir build && cd build
+cmake -DMORTIF_ENABLE_TESTS=ON ..
+cmake --build . && ctest
 ```
 
-##### building the Test Driver program
-The `Test_Driver` directory is created. The compiled objects and mod files are placed inside this directory, as well as the linked program.
-###### release test driver program
-```bash
-FoBiS.py build -mode test-driver-gnu
-```
-###### debug test driver program
-```bash
-FoBiS.py build -mode test-driver-gnu-debug
-```
-
-##### listing fobos rules
-Typing:
-```bash
-FoBiS.py rule -ls
-```
-the following message should be printed:
-```bash
-The fobos file defines the following rules:
-  - "makedoc" Rule for building documentation from source files
-       Command => rm -rf doc/html/*
-       Command => ford doc/main_page.md
-       Command => cp -r doc/html/publish/* doc/html/
-  - "deldoc" Rule for deleting documentation
-       Command => rm -rf doc/html/*
-  - "maketar" Rule for making tar archive of the project
-       Command => tar -czf MORTIF.tar.gz *
-  - "makecoverage" Rule for performing coverage analysis
-       Command => FoBiS.py clean -mode test-driver-gnu
-       Command => FoBiS.py build -mode test-driver-gnu -coverage
-       Command => ./Test_Driver/Test_Driver
-       Command => ./Test_Driver/Test_Driver -v
-       Command => ./Test_Driver/Test_Driver -s 'Hello MORTIF' -i 2
-       Command => ./Test_Driver/Test_Driver 33.0 -s 'Hello MORTIF' --integer_list 10 -3 87 -i 3 -r 64.123d0  --boolean --boolean_val .false.
-  - "coverage-analysis" Rule for performing coverage analysis and saving reports in markdown
-       Command => FoBiS.py clean -mode test-driver-gnu
-       Command => FoBiS.py build -mode test-driver-gnu -coverage
-       Command => ./Test_Driver/Test_Driver
-       Command => ./Test_Driver/Test_Driver -v
-       Command => ./Test_Driver/Test_Driver -s 'Hello MORTIF' -i 2
-       Command => ./Test_Driver/Test_Driver 33.0 -s 'Hello MORTIF' --integer_list 10 -3 87 -i 3 -r 64.123d0  --boolean --boolean_val .false.
-       Command => gcov -o Test_Driver/obj/ src/*
-       Command => FoBiS.py rule -gcov_analyzer wiki/ Coverage-Analysis
-       Command => rm -f *.gcov
-```
-The rules should be self-explicative.
-
----
-
-#### build by means of GNU Make
-
-Bad choice :-)
-
-However, a makefile (generated by FoBiS.py...) to be used with a compatible GNU Make tool is [provided](https://github.com/szaghi/MORTIF/blob/master/makefile).
-
-It is convenient to clone the whole MORTIF repository and run a *standard* make:
-
-```shell
-git clone --recursive https://github.com/szaghi/MORTIF
-cd MORTIF
-make -j 1
-```
-
-This commands build all tests (executables are in `exe/` directory). To build only the library (statically linked) type:
-
-```shell
-git clone --recursive https://github.com/szaghi/MORTIF
-cd MORTIF
-make -j 1 STATIC=yes
-```
-
-#### Build by means of CMake
-
-Bad choice :-)
-
-However, a CMake setup (kindly developed by [victorsndvg](https://github.com/victorsndvg)) is provided.
-
-It is convenient to clone the whole MORTIF repository and run a *standard* CMake configure/build commands:
-
-```shell
-git clone --recursive https://github.com/szaghi/MORTIF $YOUR_MORTIF_PATH
-mkdir build
-cd build
-cmake $YOUR_MORTIF_PATH
-cmake --build .
-```
-
-If you want to run the tests suite type:
-
-```shell
-git clone --recursive https://github.com/szaghi/MORTIF $YOUR_MORTIF_PATH
-mkdir build
-cd build
-cmake -DMORTIF_ENABLE_TESTS=ON $YOUR_MORTIF_PATH
-cmake --build .
-ctest
-```
-
-Go to [Top](#top)
-
-### References
-
-<a name="morton-1966"></a>[[1]](#morton-1966) *A Computer Oriented Geodetic Data Base and a New Technique in File Sequencing*, Morton G.M., technical report, IBM, 1966.
-
-<a name="stocco-2009"></a>[[2]](#stocco-2009) *On Spatial Orders and Location Codes*, Stocco, LJ and Schrack, G, IEEE Transaction on Computers, vol 58, n 3, March 2009.
-
-<a name="baert-2013"></a>[[3]](#baert-2013) *Out-of-Core Construction of Sparse Voxel Octrees*, J. Baert, A. Lagae and Ph. Dutré, Proceedings of the Fifth ACM SIGGRAPH/Eurographics conference on High-Performance Graphics, 2013.
-
-Go to [Top](#top)
+| Tool | Command |
+|------|---------|
+| FoBiS.py | `FoBiS.py build -mode static-gnu` |
+| GNU Make | `make -j 1` |
+| CMake | `cmake .. && cmake --build .` |
