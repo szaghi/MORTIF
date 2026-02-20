@@ -1,4 +1,9 @@
 # Changelog
+## [v0.1.2](https://github.com/szaghi/FLAP/tree/v0.1.2) (2026-02-20)
+[Full Changelog](https://github.com/szaghi/FLAP/compare/v0.1.1...v0.1.2)
+### Documentation
+- Rewrite README to be minimal and modern ([`1821b9e`](https://github.com/szaghi/FLAP/commit/1821b9ef9643b490d41d090f3d38a44fa8caeb39))
+
 ## [v0.1.1](https://github.com/szaghi/FLAP/tree/v0.1.1) (2026-02-20)
 [Full Changelog](https://github.com/szaghi/FLAP/compare/v0.1.0...v0.1.1)
 ### Bug fixes
