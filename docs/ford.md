@@ -1,7 +1,6 @@
+---
 project: MORTIF
 src_dir: ../src
-exclude_dir: ./src/third_party/PENF/src/lib
-             ./src/third_party/PENF/src/tests
 output_dir: html/publish/
 project_github: https://github.com/szaghi/MORTIF
 summary: MORTon Indexer (Z-order) Fortran envinronment
@@ -18,7 +17,5 @@ display: public
          private
 source: true
 warn: true
-graph: true
 extra_mods: iso_fortran_env:https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fFORTRAN_005fENV.html
-
-{!README-MORTIF.md!}
+---
