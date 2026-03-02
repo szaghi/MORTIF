@@ -1,8 +1,35 @@
----
-title: Coverage Analysis
----
+### coverage-analysis
 
-# Coverage Analysis
+#### [[mortif_test_correctness.f90.gcov]]
+
+|Lines| | |
+| --- | --- | --- |
+|Executable lines            |33| |
+|Executed lines              |27|82%|
+|Unexecuted lines            |6|18%|
+|Average hits / executed     |1.7407407407407407| |
+
+```mermaid
+pie showData
+    title Lines (82% covered)
+    "Executed" : 27
+    "Unexecuted" : 6
+```
+
+|Procedures| | |
+| --- | --- | --- |
+|Total procedures            |6| |
+|Executed procedures         |5|83%|
+|Unexecuted procedures       |1|17%|
+|Average hits / executed     |1.6| |
+
+```mermaid
+pie showData
+    title Procedures (83% covered)
+    "Executed" : 5
+    "Unexecuted" : 1
+```
+
 
 #### [[mortif.f90.gcov]]
 

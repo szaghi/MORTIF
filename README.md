@@ -1,23 +1,20 @@
 # MORTIF
 
-**MORTon Indexer (Z-order) Fortran environment** — a pure Fortran 2003+ library to encode and decode multidimensional integer indexes into [Morton's Z-order](https://en.wikipedia.org/wiki/Z-order_curve).
+>#### MORTon Indexer (Z-order) Fortran environment
+>a pure Fortran 2003+ library to encode and decode multidimensional integer indexes into [Morton's Z-order](https://en.wikipedia.org/wiki/Z-order_curve).
 
-[![CI](https://github.com/szaghi/MORTIF/actions/workflows/ci.yml/badge.svg)](https://github.com/szaghi/MORTIF/actions)
+[![GitHub tag](https://img.shields.io/github/v/tag/szaghi/MORTIF)](https://github.com/szaghi/MORTIF/tags)
+[![GitHub issues](https://img.shields.io/github/issues/szaghi/MORTIF)](https://github.com/szaghi/MORTIF/issues)
+[![CI](https://github.com/szaghi/MORTIF/actions/workflows/ci.yml/badge.svg)](https://github.com/szaghi/MORTIF/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/codecov/c/github/szaghi/MORTIF.svg)](https://app.codecov.io/gh/szaghi/MORTIF)
-[![GitHub tag](https://img.shields.io/github/tag/szaghi/MORTIF.svg)](https://github.com/szaghi/MORTIF/releases)
 [![License](https://img.shields.io/badge/license-GPLv3%20%7C%20BSD%20%7C%20MIT-blue.svg)](#copyrights)
 
----
+| 🔢 **2D encoding**<br>`morton2D` maps two 32-bit indexes → one 64-bit Morton code | 📐 **3D encoding**<br>`morton3D` maps three 32-bit indexes → one 64-bit code (up to 21 bits/axis) | 🔄 **Lossless decoding**<br>`demorton2D`/`demorton3D` are the exact inverse — bit-perfect round-trip | ⚡ **Elemental interface**<br>All four procedures work on scalars and conformable arrays in one call |
+|:---:|:---:|:---:|:---:|
+| 🧩 **Single module**<br>Entire library is a single `mortif.f90` — easy to vendor | 📏 **Configurable precision**<br>Optional `b` parameter restricts to 2/4/8/16/32 significant bits per axis | 🏎️ **Zero overhead**<br>No range checks, no allocations, no system calls | 📦 **Multiple build systems**<br>FoBiS, CMake, GNU Make |
 
-## Features
-
-- Encode two 32-bit indexes into a 64-bit Morton code with `morton2D`
-- Encode three 32-bit indexes into a 64-bit Morton code with `morton3D` (up to 21 significant bits per axis)
-- Decode Morton codes back to indexes with `demorton2D` / `demorton3D`
-- All four procedures are `elemental` — apply directly to scalars or arrays
-- Pure Fortran, no C extensions, single 194-line module
-
-**[Documentation](https://szaghi.github.io/MORTIF/)** | **[API Reference](https://szaghi.github.io/MORTIF/api/)**
+>#### [Documentation](https://szaghi.github.io/MORTIF/)
+> For full documentation (guide, API reference, examples, etc...) see the [MORTIF website](https://szaghi.github.io/MORTIF/).
 
 ---
 
@@ -40,8 +37,6 @@ This project is distributed under a multi-licensing system:
 
 ## Quick start
 
-Encode a 3D index tuple and decode it back:
-
 ```fortran
 use, intrinsic :: iso_fortran_env, only : int32, int64
 use mortif
@@ -50,7 +45,7 @@ integer(int32) :: i, j, k
 integer(int64) :: code
 
 code = morton3D(i=0_int32, j=1_int32, k=0_int32)
-print '(A,I20)', "Morton code of {0,1,0}: ", code   ! 2
+print '(A,I0)', "Morton code of {0,1,0}: ", code   ! 2
 
 call demorton3D(code=code, i=i, j=j, k=k)
 print '(A,3(I0,1X))', "Decoded: ", i, j, k          ! 0 1 0
@@ -69,29 +64,45 @@ integer(int64) :: codes(4)
 codes = morton2D(i=ix, j=iy)   ! [0, 1, 4, 5]
 ```
 
+See [`src/tests/`](src/tests/) for correctness tests including extrema and 4096-point 16×16×16 grid validation.
+
 ---
 
 ## Install
 
-### Clone and build with FoBiS.py
+### FoBiS
 
-```sh
-git clone https://github.com/szaghi/MORTIF --recursive
-cd MORTIF
-FoBiS.py build -mode tests-gnu
-./scripts/run_tests.sh
+**Standalone** — clone, fetch the dependency, and build:
+
+```bash
+git clone https://github.com/szaghi/MORTIF && cd MORTIF
+FoBiS.py fetch                    # fetch PENF
+FoBiS.py build -mode static-gnu   # build static library
 ```
 
-### Build with CMake
+**As a project dependency** — declare MORTIF in your `fobos` and run `fetch`:
 
-```sh
-mkdir build && cd build
-cmake -DMORTIF_ENABLE_TESTS=ON ..
-cmake --build . && ctest
+```ini
+[dependencies]
+deps_dir = src/third_party
+MORTIF = https://github.com/szaghi/MORTIF
 ```
 
-| Tool | Command |
-|------|---------|
-| FoBiS.py | `FoBiS.py build -mode static-gnu` |
-| GNU Make | `make -j 1` |
-| CMake | `cmake .. && cmake --build .` |
+```bash
+FoBiS.py fetch           # fetch and build
+FoBiS.py fetch --update  # re-fetch and rebuild
+```
+
+### CMake
+
+```bash
+git clone https://github.com/szaghi/MORTIF --recursive && cd MORTIF
+cmake -B build -DMORTIF_ENABLE_TESTS=ON && cmake --build build && ctest --test-dir build
+```
+
+**As a CMake subdirectory:**
+
+```cmake
+add_subdirectory(MORTIF)
+target_link_libraries(your_target MORTIF::MORTIF)
+```

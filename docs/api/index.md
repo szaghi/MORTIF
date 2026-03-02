@@ -10,6 +10,10 @@ Auto-generated from Fortran source doc comments using [FORMAL](https://github.co
 
 - [mortif](/api/src/lib/mortif)
 
+## src/tests
+
+- [tester](/api/src/tests/tester)
+
 ## src/third_party/PENF/src/lib
 
 - [penf](/api/src/third_party/PENF/src/lib/penf)
@@ -17,7 +21,3 @@ Auto-generated from Fortran source doc comments using [FORMAL](https://github.co
 - [penf_b_size](/api/src/third_party/PENF/src/lib/penf_b_size)
 - [penf_global_parameters_variables](/api/src/third_party/PENF/src/lib/penf_global_parameters_variables)
 - [penf_stringify](/api/src/third_party/PENF/src/lib/penf_stringify)
-
-## src/third_party/fortran_tester/src
-
-- [tester](/api/src/third_party/fortran_tester/src/tester)

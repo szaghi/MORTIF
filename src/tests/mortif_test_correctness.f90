@@ -1,3 +1,59 @@
+module tester
+!< Minimal test framework replacing fortran_tester dependency.
+use, intrinsic :: iso_fortran_env, only : int32, int64
+implicit none
+private
+public :: tester_t
+
+type :: tester_t
+  integer(int32) :: n_pass = 0
+  integer(int32) :: n_fail = 0
+contains
+  procedure :: init
+  procedure, private :: assert_equal_i32
+  procedure, private :: assert_equal_i64
+  procedure, private :: assert_equal_logical
+  generic   :: assert_equal => assert_equal_i32, assert_equal_i64, assert_equal_logical
+  procedure :: print => print_results
+endtype tester_t
+
+contains
+  subroutine init(self)
+  class(tester_t), intent(inout) :: self
+  self%n_pass = 0
+  self%n_fail = 0
+  endsubroutine init
+
+  subroutine assert_equal_i32(self, a, b)
+  class(tester_t), intent(inout) :: self
+  integer(int32),  intent(in)    :: a, b
+  if (a == b) then ; self%n_pass = self%n_pass + 1
+  else             ; self%n_fail = self%n_fail + 1
+  endif
+  endsubroutine assert_equal_i32
+
+  subroutine assert_equal_i64(self, a, b)
+  class(tester_t), intent(inout) :: self
+  integer(int64),  intent(in)    :: a, b
+  if (a == b) then ; self%n_pass = self%n_pass + 1
+  else             ; self%n_fail = self%n_fail + 1
+  endif
+  endsubroutine assert_equal_i64
+
+  subroutine assert_equal_logical(self, a, b)
+  class(tester_t), intent(inout) :: self
+  logical,         intent(in)    :: a, b
+  if (a .eqv. b) then ; self%n_pass = self%n_pass + 1
+  else                ; self%n_fail = self%n_fail + 1
+  endif
+  endsubroutine assert_equal_logical
+
+  subroutine print_results(self)
+  class(tester_t), intent(in) :: self
+  write(*, '(A,L1)') 'Are all tests passed? ', (self%n_fail == 0)
+  endsubroutine print_results
+endmodule tester
+
 !< MORTIF test correctness.
 program mortif_test_correctness
 !< MORTIF test correctness.

@@ -62,7 +62,7 @@ No range check is performed at runtime to avoid computational overhead. It is th
 
 ## Design Principles
 
-- **Pure Fortran** — no C extensions, no system calls, no external libraries beyond PENF
+- **Pure Fortran** — no C extensions, no system calls; the only dependency is PENF (kind parameters); no external test framework
 - **Elemental** — all procedures are declared `elemental`, enabling array-at-a-time use
 - **KISS** — the entire library is a single 194-line Fortran module
 - **TDD** — developed test-first; correctness tests cover encoding and round-trip decoding

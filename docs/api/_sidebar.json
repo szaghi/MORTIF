@@ -10,6 +10,16 @@
     ]
   },
   {
+    "text": "src/tests",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "tester",
+        "link": "/api/src/tests/tester"
+      }
+    ]
+  },
+  {
     "text": "src/third_party/PENF/src/lib",
     "collapsed": true,
     "items": [
@@ -32,16 +42,6 @@
       {
         "text": "penf_stringify",
         "link": "/api/src/third_party/PENF/src/lib/penf_stringify"
-      }
-    ]
-  },
-  {
-    "text": "src/third_party/fortran_tester/src",
-    "collapsed": true,
-    "items": [
-      {
-        "text": "tester",
-        "link": "/api/src/third_party/fortran_tester/src/tester"
       }
     ]
   }

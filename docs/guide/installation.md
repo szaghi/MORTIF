@@ -17,27 +17,26 @@ MORTIF is developed on GNU/Linux. Windows should work out of the box but is not 
 
 ## Download
 
-MORTIF uses **git submodules** for its third-party dependencies. Clone recursively:
-
 ```bash
-git clone https://github.com/szaghi/MORTIF --recursive
+git clone https://github.com/szaghi/MORTIF
 cd MORTIF
-```
-
-If you already have a non-recursive clone:
-
-```bash
-git submodule update --init --recursive
 ```
 
 ### Third-Party Dependencies
 
-The submodules live under `src/third_party/`:
+MORTIF has one dependency: [PENF](https://github.com/szaghi/PENF), which provides portable numeric kind parameters (`I4P`, `I8P`, `R4P`, etc.).
 
-| Library | Purpose |
-|---------|---------|
-| [PENF](https://github.com/szaghi/PENF) | Portable numeric kind parameters (`I4P`, `I8P`, `R4P`, etc.) |
-| [fortran_tester](https://github.com/pdebuyl/fortran_tester) | Lightweight assertion framework used in tests |
+The preferred way to fetch it is via FoBiS.py (the dependency is declared in `fobos`):
+
+```bash
+FoBiS.py fetch
+```
+
+Alternatively, initialise the git submodule directly:
+
+```bash
+git submodule update --init src/third_party/PENF
+```
 
 ## Build with FoBiS.py (recommended)
 
