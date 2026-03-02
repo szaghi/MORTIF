@@ -1,4 +1,9 @@
 # Changelog
+## [v0.1.3](https://github.com/szaghi/FLAP/tree/v0.1.3) (2026-03-02)
+[Full Changelog](https://github.com/szaghi/FLAP/compare/v0.1.2...v0.1.3)
+### CI/CD
+- Overhaul pipeline, drop fortran_tester, switch to FoBiS.py fetch ([`5958890`](https://github.com/szaghi/FLAP/commit/595889053f3cf6e14620ef9553b24b7bff30b5f0))
+
 ## [v0.1.2](https://github.com/szaghi/FLAP/tree/v0.1.2) (2026-02-20)
 [Full Changelog](https://github.com/szaghi/FLAP/compare/v0.1.1...v0.1.2)
 ### Documentation
