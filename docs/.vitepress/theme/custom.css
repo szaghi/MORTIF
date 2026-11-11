@@ -1,0 +1,107 @@
+/* MORTIF identity: 2.5 Harai in the Sakura palette, on the Sumi family roles. */
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --sumi-ground: #fbf6f5;
+  --sumi-ground-alt: #f4ecea;
+  --sumi-ground-raised: #ffffff;
+  --sumi-line: #eadfdd;
+  --sumi-ink: #16171a;
+  --sumi-ink-muted: #55585e;
+  --sumi-mesh: #6d7178;
+  --sumi-link: #c2185b;
+  --sumi-seal: #0b7a75;
+  --sumi-action: #c2185b;
+  --sumi-action-pressed: #9c1249;
+  --sumi-on-action: #ffffff;
+  --sumi-focus-ring: #16171a;
+}
+
+.dark {
+  --sumi-ground: #140b10;
+  --sumi-ground-alt: #0f080c;
+  --sumi-ground-raised: #1c1318;
+  --sumi-line: #33262d;
+  --sumi-ink: #eef0f3;
+  --sumi-ink-muted: #a7adb6;
+  --sumi-mesh: #8b949e;
+  --sumi-link: #ff7eb6;
+  --sumi-seal: #43d1c6;
+  --sumi-action: #ff7eb6;
+  --sumi-action-pressed: #e0609a;
+  --sumi-on-action: #140b10;
+  --sumi-focus-ring: #ff7eb6;
+}
+
+:root, .dark {
+  --vp-font-family-base: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --vp-c-bg: var(--sumi-ground);
+  --vp-c-bg-alt: var(--sumi-ground-alt);
+  --vp-c-bg-elv: var(--sumi-ground-raised);
+  --vp-c-bg-soft: var(--sumi-ground-alt);
+  --vp-c-divider: var(--sumi-line);
+  --vp-c-border: var(--sumi-mesh);
+  --vp-c-gutter: var(--sumi-line);
+
+  --vp-c-text-1: var(--sumi-ink);
+  --vp-c-text-2: var(--sumi-ink-muted);
+  --vp-c-text-3: var(--sumi-ink-muted);
+
+  --vp-c-brand-1: var(--sumi-link);
+  --vp-c-brand-2: var(--sumi-action-pressed);
+  --vp-c-brand-3: var(--sumi-action);
+  --vp-c-brand-soft: color-mix(in srgb, var(--sumi-link) 14%, transparent);
+
+  --vp-button-brand-bg: var(--sumi-action);
+  --vp-button-brand-border: var(--sumi-action);
+  --vp-button-brand-text: var(--sumi-on-action);
+  --vp-button-brand-hover-bg: var(--sumi-action-pressed);
+  --vp-button-brand-hover-border: var(--sumi-action-pressed);
+  --vp-button-brand-hover-text: var(--sumi-on-action);
+  --vp-button-brand-active-bg: var(--sumi-action-pressed);
+  --vp-button-brand-active-text: var(--sumi-on-action);
+  --vp-button-alt-bg: transparent;
+  --vp-button-alt-border: var(--sumi-mesh);
+  --vp-button-alt-text: var(--sumi-ink);
+  --vp-button-alt-hover-bg: var(--sumi-ground-alt);
+  --vp-button-alt-hover-border: var(--sumi-ink);
+  --vp-button-alt-hover-text: var(--sumi-ink);
+
+  --vp-c-tip-1: var(--sumi-seal);
+  --vp-c-tip-soft: color-mix(in srgb, var(--sumi-seal) 12%, transparent);
+
+  --vp-code-block-bg: var(--sumi-ground-alt);
+  --vp-code-color: var(--sumi-ink);
+  --vp-code-bg: var(--sumi-ground-alt);
+
+  --vp-home-hero-name-color: var(--sumi-ink);
+  --vp-home-hero-image-background-image: none;
+  --vp-home-hero-image-filter: none;
+}
+
+/* the name is set in the family display face */
+.VPHero .name, .VPNavBarTitle .title {
+  font-family: 'Shippori Mincho', 'Hiragino Mincho ProN', serif;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.VPHero .text { color: var(--sumi-link); font-weight: 600; }
+
+/* feature cards: raised paper, hairline border, no tinted icon box */
+/* scoped VitePress styles weigh (0,2,0): three classes win without !important */
+.VPHome .VPFeatures .VPFeature {
+  background: var(--sumi-ground-raised);
+  border: 1px solid var(--sumi-line);
+  border-radius: 8px;
+}
+.VPHome .VPFeatures .VPFeature .icon { background: transparent; width: 48px; height: 48px; }
+
+/* near-square controls, like a carved seal */
+.VPButton { border-radius: 4px; }
+
+/* the hero mark carries its own AMR ground; no glow behind it */
+.VPHero .image-bg { display: none; }
+
+:focus-visible { outline: 2px solid var(--sumi-focus-ring); outline-offset: 2px; }
