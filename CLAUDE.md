@@ -78,6 +78,13 @@ FoBiS.py rule -ex makecoverage
 
 This cleans, rebuilds with `-coverage`, runs tests, and runs `gcov`.
 
+## CI
+
+The workflows come from the FoBiS scaffold (`fobis scaffold status` / `sync`). `ci.yml` (tests, coverage) and the build
+job of `docs.yml` run in the container `ghcr.io/szaghi/fortran-toolchains:gnu-16.2` (repo `~/fortran/fortran-toolchains`:
+gfortran 16.2, Open MPI 5.0.11, FoBiS, formal), set by `[scaffold] toolchain_image` in `fobos`; `install.yml` and
+`release.yml` run on the bare runner.
+
 ## Code Architecture
 
 ```
