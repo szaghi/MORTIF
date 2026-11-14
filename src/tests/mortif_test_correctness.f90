@@ -51,6 +51,8 @@ contains
   subroutine print_results(self)
   class(tester_t), intent(in) :: self
   write(*, '(A,L1)') 'Are all tests passed? ', (self%n_fail == 0)
+  ! a failure must fail the run: the test runners (scripts/run_tests.sh, fpm test) judge by the exit status
+  if (self%n_fail > 0) error stop 1
   endsubroutine print_results
 endmodule tester
 
