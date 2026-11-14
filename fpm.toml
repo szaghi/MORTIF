@@ -1,0 +1,21 @@
+name = "MORTIF"
+version = "0.1.4"
+author = "Stefano Zaghi"
+description = "MORTon Indexer (Z-order) Fortran environment"
+homepage = "https://github.com/szaghi/MORTIF"
+
+[library]
+source-dir = "src/lib"
+
+[build]
+auto-executables = false
+auto-tests = false
+auto-examples = false
+
+[dependencies]
+PENF = { git = "https://github.com/szaghi/PENF" }
+
+[[test]]
+name = "mortif_test_correctness"
+source-dir = "src/tests"
+main = "mortif_test_correctness.f90"
