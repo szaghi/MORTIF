@@ -19,3 +19,7 @@ PENF = { git = "https://github.com/szaghi/PENF" }
 name = "mortif_test_correctness"
 source-dir = "src/tests"
 main = "mortif_test_correctness.f90"
+
+# fpm install installs the library and its modules (by default it installs executables only)
+[install]
+library = true
