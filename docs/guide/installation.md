@@ -9,6 +9,20 @@ title: Installation
 A Fortran 2003 compiler. MORTIF is tested on every push with gfortran 16.2; the fobos also has modes for the Intel
 compilers (`*-intel`), not tested recently. MORTIF is developed on GNU/Linux.
 
+## One-line install
+
+```bash
+curl -fsSL https://github.com/szaghi/MORTIF/releases/latest/download/install.sh | bash
+```
+
+It installs the latest release into `~/.local` with the build system you choose among those MORTIF ships
+(`--build fobis|fpm`: a menu asks when you do not say), the compiler you name (`--fc`, `--gnu`, `--intel`), one install
+per compiler (`lib/mortif/<compiler>-<version>/`, `include/mortif/<compiler>-<version>/`), and makes it usable through
+pkg-config (`pkg-config --cflags --libs mortif`, with `PKG_CONFIG_PATH=$HOME/.local/lib/pkgconfig`). The release
+carries PENF. Pass options after `bash -s --`, e.g. `... | bash -s -- --build fpm --prefix /opt/mortif`; `--help`
+lists them all, `--uninstall` removes the install. The installer is FoBiS's
+([One-line installer](https://szaghi.github.io/FoBiS/cookbook/installer)).
+
 ## Download
 
 ```bash

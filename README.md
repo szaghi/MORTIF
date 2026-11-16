@@ -70,6 +70,20 @@ See [`src/tests/`](src/tests/) for correctness tests including extrema and 4096-
 
 ## Install
 
+### One-line install
+
+```bash
+curl -fsSL https://github.com/szaghi/MORTIF/releases/latest/download/install.sh | bash
+```
+
+It installs the latest release into `~/.local` with the build system you choose among those MORTIF ships
+(`--build fobis|fpm`: a menu asks when you do not say), the compiler you name (`--fc`, `--gnu`, `--intel`), one install
+per compiler (`lib/mortif/<compiler>-<version>/`, `include/mortif/<compiler>-<version>/`), and makes it usable through
+pkg-config (`pkg-config --cflags --libs mortif`, with `PKG_CONFIG_PATH=$HOME/.local/lib/pkgconfig`). The release
+carries PENF. Pass options after `bash -s --`, e.g. `... | bash -s -- --build fpm --prefix /opt/mortif`; `--help`
+lists them all, `--uninstall` removes the install. The installer is FoBiS's
+([One-line installer](https://szaghi.github.io/FoBiS/cookbook/installer)).
+
 ### FoBiS
 
 **Standalone** — clone, fetch the dependency, and build:
