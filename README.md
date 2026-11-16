@@ -76,8 +76,8 @@ See [`src/tests/`](src/tests/) for correctness tests including extrema and 4096-
 
 ```bash
 git clone https://github.com/szaghi/MORTIF && cd MORTIF
-FoBiS.py fetch                    # fetch PENF
-FoBiS.py build -mode static-gnu   # build static library
+fobis fetch                       # fetch PENF
+fobis build --mode static-gnu     # static/libmortif.a, modules in static/mod
 ```
 
 **As a project dependency** — declare MORTIF in your `fobos` and run `fetch`:
@@ -89,20 +89,13 @@ MORTIF = https://github.com/szaghi/MORTIF
 ```
 
 ```bash
-FoBiS.py fetch           # fetch and build
-FoBiS.py fetch --update  # re-fetch and rebuild
+fobis fetch              # fetch MORTIF and PENF
+fobis fetch --update     # update them
 ```
 
-### CMake
+### fpm
 
-```bash
-git clone https://github.com/szaghi/MORTIF --recursive && cd MORTIF
-cmake -B build -DMORTIF_ENABLE_TESTS=ON && cmake --build build && ctest --test-dir build
-```
-
-**As a CMake subdirectory:**
-
-```cmake
-add_subdirectory(MORTIF)
-target_link_libraries(your_target MORTIF::MORTIF)
+```toml
+[dependencies]
+MORTIF = { git = "https://github.com/szaghi/MORTIF" }
 ```

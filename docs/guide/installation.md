@@ -6,14 +6,8 @@ title: Installation
 
 ## Prerequisites
 
-A Fortran 2003+ compliant compiler is required. The following compilers are known to work:
-
-| Compiler | Minimum version |
-|----------|----------------|
-| GNU gfortran | ≥ 6.1 |
-| Intel Fortran (ifort / ifx) | ≥ 16.x |
-
-MORTIF is developed on GNU/Linux. Windows should work out of the box but is not officially tested.
+A Fortran 2003 compiler. MORTIF is tested on every push with gfortran 16.2; the fobos also has modes for the Intel
+compilers (`*-intel`), not tested recently. MORTIF is developed on GNU/Linux.
 
 ## Download
 
@@ -26,21 +20,15 @@ cd MORTIF
 
 MORTIF has one dependency: [PENF](https://github.com/szaghi/PENF), which provides portable numeric kind parameters (`I4P`, `I8P`, `R4P`, etc.).
 
-The preferred way to fetch it is via FoBiS.py (the dependency is declared in `fobos`):
+FoBiS fetches it (the dependency is declared in `fobos`), fpm too (it is declared in `fpm.toml`):
 
 ```bash
-FoBiS.py fetch
+fobis fetch
 ```
 
-Alternatively, initialise the git submodule directly:
+## Build with FoBiS (recommended)
 
-```bash
-git submodule update --init src/third_party/PENF
-```
-
-## Build with FoBiS.py (recommended)
-
-[FoBiS.py](https://github.com/szaghi/FoBiS) is the primary build system and is used by the CI pipeline.
+[FoBiS](https://github.com/szaghi/FoBiS) is the primary build system and is used by the CI pipeline.
 
 ```bash
 pip install FoBiS.py
@@ -49,7 +37,7 @@ pip install FoBiS.py
 ### List all build modes
 
 ```bash
-FoBiS.py build -lmodes
+fobis build --lmodes
 ```
 
 Available modes:
@@ -68,7 +56,7 @@ Available modes:
 ### Build and run tests
 
 ```bash
-FoBiS.py build -mode tests-gnu
+fobis build --mode tests-gnu
 ./scripts/run_tests.sh
 ```
 
@@ -78,51 +66,34 @@ Compiled test executables are placed in `./exe/`.
 
 ```bash
 # Static library (GNU gfortran)
-FoBiS.py build -mode static-gnu
+fobis build --mode static-gnu
 
 # Shared library (GNU gfortran)
-FoBiS.py build -mode shared-gnu
+fobis build --mode shared-gnu
 
 # Static library (Intel Fortran)
-FoBiS.py build -mode static-intel
+fobis build --mode static-intel
 ```
 
 ### Coverage and documentation
 
 ```bash
-FoBiS.py rule -ex makecoverage   # build + run tests + gcov report
-FoBiS.py rule -ex makedoc        # build ford API documentation
+fobis rule --ex makecoverage     # build + run tests + gcov report
+fobis rule --ex makedoc          # build ford API documentation
 ```
 
-Documentation generation requires `ford` (`pip install ford`) and `graphviz`.
+Documentation generation requires `formal` and Node.js (VitePress).
 
-## Build with GNU Make
-
-A makefile is provided for compatibility. It builds all tests with executables in `./exe/`:
+## Build with fpm
 
 ```bash
-make -j 1
+fpm build                         # the library; fpm fetches PENF
+fpm test                          # the correctness test
 ```
 
-To build only the static library:
+As a dependency of your fpm project:
 
-```bash
-make -j 1 STATIC=yes
-```
-
-## Build with CMake
-
-```bash
-git clone --recursive https://github.com/szaghi/MORTIF $YOUR_MORTIF_PATH
-mkdir build && cd build
-cmake $YOUR_MORTIF_PATH
-cmake --build .
-```
-
-To run the test suite with CMake:
-
-```bash
-cmake -DMORTIF_ENABLE_TESTS=ON $YOUR_MORTIF_PATH
-cmake --build .
-ctest
+```toml
+[dependencies]
+MORTIF = { git = "https://github.com/szaghi/MORTIF" }
 ```
